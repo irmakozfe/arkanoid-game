@@ -1,4 +1,4 @@
-# arkanoid-game-mad2
+# Arkanoid Game 
 A basic arkanoid game development with Godot and C#
 
 ## Input Map 

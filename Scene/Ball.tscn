@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cefsuy0xpvm6d"]
+
+[ext_resource type="Texture2D" uid="uid://d4em0a0yhg5th" path="res://Art/GArkanoid-art/32/ball.png" id="1_bwwxe"]
+[ext_resource type="Script" uid="uid://d1f6hdlqgrwko" path="res://Code/Ball.cs" id="2_8i0ic"]
+
+[node name="Ball" type="Node2D" unique_id=902806357]
+
+[node name="Ball" type="Sprite2D" parent="." unique_id=930898551]
+texture = ExtResource("1_bwwxe")
+script = ExtResource("2_8i0ic")

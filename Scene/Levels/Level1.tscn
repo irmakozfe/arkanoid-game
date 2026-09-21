@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bqu27e8iwq8a7"]
+
+[ext_resource type="PackedScene" uid="uid://cefsuy0xpvm6d" path="res://Scene/Ball.tscn" id="1_bcosh"]
+[ext_resource type="Script" uid="uid://d1f6hdlqgrwko" path="res://Code/Ball.cs" id="2_5osfa"]
+[ext_resource type="PackedScene" uid="uid://bmqk08xdnbqab" path="res://Scene/Paddle.tscn" id="2_gkjhl"]
+
+[node name="Level1" type="Node2D" unique_id=662855955]
+
+[node name="Ball" parent="." unique_id=2103484260 instance=ExtResource("1_bcosh")]
+position = Vector2(527, 453)
+script = ExtResource("2_5osfa")
+
+[node name="Paddle" parent="." unique_id=148408937 instance=ExtResource("2_gkjhl")]
+position = Vector2(528, 497.5)

@@ -17,9 +17,10 @@ size = Vector2(1092, 32)
 
 [node name="Level1" type="Node2D" unique_id=662855955]
 
-[node name="Ball" parent="." unique_id=2103484260 instance=ExtResource("1_bcosh")]
+[node name="Ball" parent="." unique_id=2103484260 node_paths=PackedStringArray("_paddle") instance=ExtResource("1_bcosh")]
 position = Vector2(527, 453)
 collision_mask = 6
+_paddle = NodePath("../Paddle")
 
 [node name="Paddle" parent="." unique_id=148408937 instance=ExtResource("2_gkjhl")]
 position = Vector2(528, 497.5)

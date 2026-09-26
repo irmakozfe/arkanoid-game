@@ -6,15 +6,18 @@ namespace GArkanoid.Entities
 	public partial class Ball : CharacterBody2D
 	{
 		
-		[Export] private float _speed = 200;
+		[Export] private float _speed = 300;
 		[Export] private Vector2 _direction = new Vector2(1,-1);
+		[Export] private Paddle _paddle;
+		[Export] private Vector2 _offset = new Vector2(0, -42); // offset -> tried some numbers for the positioning 
 
-	public float Speed
-	{
-		get { return _speed; }
-	}
+		private bool _isLaunched = false; 
+		public float Speed
+		{
+			get { return _speed; }
+		}
 
-	public Vector2 Direction
+		public Vector2 Direction
 		{
 			get {return _direction;}
 		}
@@ -28,13 +31,32 @@ namespace GArkanoid.Entities
 		{
 			float deltaTime = (float)delta;
 
-			Vector2 ballMovement  = _direction * _speed * deltaTime;
-			KinematicCollision2D collision = MoveAndCollide(ballMovement);
-
-			if (collision != null)
+			if (!_isLaunched)
 			{
-				Vector2 normal = collision.GetNormal();
-				_direction = _direction -2 * _direction.Dot(normal)* normal;
+				FollowPaddle();
+				return;
+			}
+
+			Move(deltaTime);
+		}
+
+		private void FollowPaddle()
+		{
+			GlobalPosition = _paddle.GlobalPosition + _offset;
+
+			if (Input.IsActionJustPressed("Launch"))
+			{
+				_isLaunched = true;
+			}
+		}
+
+		private void Move(float delta)
+		{
+			KinematicCollision2D collision = MoveAndCollide(_direction * _speed * delta);
+
+			if(collision != null)
+			{
+				_direction = _direction.Bounce(collision.GetNormal());
 			}
 		}
 }

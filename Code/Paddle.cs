@@ -1,40 +1,49 @@
 using Godot;
 using System;
+using System.Security.AccessControl;
 
 namespace GArkanoid.Entities
 {
  	public partial class Paddle : CharacterBody2D
 	{
+		public enum ControlMode
+		{
+			Keyboard,
+			Mouse
+		}
 		[Export] private float _speed = 300;
+		[Export] private ControlMode _controlMode =ControlMode.Keyboard;
 
 		private Ball _ball;
-		private bool _mouseControlEnabled = false;
 
 
 
-		public override void _Process(double delta)
+
+		public override void _PhysicsProcess(double delta)
 		{
 			float deltaTime = (float)delta;
 
 			if (Input.IsActionJustPressed("ClickToggle")) 
 			{
-				_mouseControlEnabled = !_mouseControlEnabled;
+				_controlMode = _controlMode == ControlMode.Keyboard 
+				? ControlMode.Mouse
+				: ControlMode.Keyboard;
 			}
 
-			if (_mouseControlEnabled)
+			float moveX = 0;
+			switch (_controlMode)
 			{
-				float mouse = GetGlobalMousePosition().X;
-				Position = new Vector2(mouse, Position.Y);
-			}
-			else
-			{
+				case ControlMode.Mouse:
+				moveX= GetGlobalMousePosition().X - GlobalPosition.X;
+				break;
+
+				case ControlMode.Keyboard:
 				float horizontal = Input.GetAxis("Left", "Right");
-				Position += new Vector2(horizontal, 0) * _speed * deltaTime;
+				moveX = horizontal * _speed * deltaTime;
+				break;
 			}
 
-			float viewportX = GetViewportRect().Size.X;
-			float paddleHalfWidth= GetNode<Sprite2D>("Sprite2D").GetRect().Size.X * Scale.X / 8; // I found this scaling by trying out  
-			Position = new Vector2(Mathf.Clamp(Position.X, paddleHalfWidth, viewportX - paddleHalfWidth), Position.Y);
+			MoveAndCollide(new Vector2(moveX, 0));
 
 
 			if (Input.IsActionJustPressed("Launch"))

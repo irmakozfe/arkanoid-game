@@ -3,8 +3,14 @@
 [ext_resource type="Texture2D" uid="uid://d4em0a0yhg5th" path="res://Art/GArkanoid-art/32/ball.png" id="1_bwwxe"]
 [ext_resource type="Script" uid="uid://d1f6hdlqgrwko" path="res://Code/Ball.cs" id="2_8i0ic"]
 
-[node name="Ball" type="Node2D" unique_id=902806357]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ghe0m"]
+radius = 15.033297
+
+[node name="Ball" type="CharacterBody2D" unique_id=1871623377]
+script = ExtResource("2_8i0ic")
 
 [node name="Ball" type="Sprite2D" parent="." unique_id=930898551]
 texture = ExtResource("1_bwwxe")
-script = ExtResource("2_8i0ic")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=24001087]
+shape = SubResource("CircleShape2D_ghe0m")

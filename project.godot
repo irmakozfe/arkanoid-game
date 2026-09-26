@@ -49,6 +49,12 @@ Launch={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="BallLayer"
+2d_physics/layer_2="PadelLayer"
+2d_physics/layer_3="WallLayer"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
@@ -56,3 +62,4 @@ Launch={
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

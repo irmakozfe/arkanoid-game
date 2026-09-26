@@ -1,7 +1,11 @@
 [gd_scene format=3 uid="uid://bmqk08xdnbqab"]
 
 [ext_resource type="Texture2D" uid="uid://dig0xgc3w3lns" path="res://Art/GArkanoid-art/256/paddle.png" id="1_v2sq7"]
+[ext_resource type="Shader" uid="uid://bxj45fysmd5r2" path="res://Shaders/NineSplice.gdshader" id="2_0sw5q"]
 [ext_resource type="Script" uid="uid://fwcyf54nx2nl" path="res://Code/Paddle.cs" id="2_v2sq7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1cjc4"]
+shader = ExtResource("2_0sw5q")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ghe0m"]
 radius = 7.4200916
@@ -13,6 +17,7 @@ scale = Vector2(1, 0.96875)
 script = ExtResource("2_v2sq7")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=568255649]
+material = SubResource("ShaderMaterial_1cjc4")
 position = Vector2(1.3125018, -0.28024364)
 scale = Vector2(0.24, 0.206)
 texture = ExtResource("1_v2sq7")

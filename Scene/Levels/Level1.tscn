@@ -7,13 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://b608ifw32cjxg" path="res://Art/GArkanoid-art/32/horizontal.png" id="6_88x46"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68yrv"]
-size = Vector2(32, 33.863014)
+size = Vector2(32, 32.109592)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ghe0m"]
-size = Vector2(31, 33.808224)
+size = Vector2(31, 32.109596)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvjf5"]
-size = Vector2(1092, 32)
+size = Vector2(1088, 32)
 
 [node name="Level1" type="Node2D" unique_id=662855955]
 
@@ -55,7 +55,7 @@ scale = Vector2(1, 18.25)
 texture = ExtResource("5_88x46")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/Left" unique_id=626821458]
-position = Vector2(16, 338.99997)
+position = Vector2(16, 323)
 scale = Vector2(1, 18.25)
 shape = SubResource("RectangleShape2D_68yrv")
 
@@ -69,7 +69,7 @@ scale = Vector2(1.0000001, 18.249998)
 texture = ExtResource("5_88x46")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/Right" unique_id=1759602936]
-position = Vector2(1135.5, 339.5)
+position = Vector2(1135.5, 324)
 scale = Vector2(1.0000001, 18.249998)
 shape = SubResource("RectangleShape2D_ghe0m")
 
@@ -84,4 +84,17 @@ texture = ExtResource("6_88x46")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/Top" unique_id=1047843197]
 position = Vector2(575, 16)
+shape = SubResource("RectangleShape2D_bvjf5")
+
+[node name="Bottom" type="StaticBody2D" parent="Bounds" unique_id=1495889789]
+collision_layer = 4
+collision_mask = 4
+
+[node name="BottomBar" type="Sprite2D" parent="Bounds/Bottom" unique_id=695918463]
+position = Vector2(575.95245, 632)
+scale = Vector2(33.997025, 0.9999998)
+texture = ExtResource("6_88x46")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/Bottom" unique_id=15873027]
+position = Vector2(576, 632)
 shape = SubResource("RectangleShape2D_bvjf5")

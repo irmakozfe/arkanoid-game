@@ -11,6 +11,8 @@ export.cfg
 export_credentials.cfg
 *.tmp
 
+.vscode/
+
 # Imported translations (automatically generated from CSV files)
 *.translation
 

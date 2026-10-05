@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://3ead8x0u5rq0"]
+
+[ext_resource type="Texture2D" uid="uid://ducdov7jkbgts" path="res://Art/GArkanoid-art/32/corner.png" id="1_8wf8d"]
+[ext_resource type="Texture2D" uid="uid://dh28m1clwhqe2" path="res://Art/GArkanoid-art/32/vertical.png" id="2_nhghi"]
+[ext_resource type="Texture2D" uid="uid://b608ifw32cjxg" path="res://Art/GArkanoid-art/32/horizontal.png" id="3_8whcy"]
+[ext_resource type="PackedScene" uid="uid://y76nubf3doea" path="res://Scene/CustomBall.tscn" id="4_20br8"]
+
+[node name="NoPhysics" type="Node2D" unique_id=2034807650]
+
+[node name="Bounds" type="Node2D" parent="." unique_id=169431434]
+
+[node name="BottomRightCorner" type="Sprite2D" parent="Bounds" unique_id=1508360059]
+position = Vector2(1136, 632)
+texture = ExtResource("1_8wf8d")
+
+[node name="TopRightCorner" type="Sprite2D" parent="Bounds" unique_id=81666297]
+position = Vector2(1136, 16)
+texture = ExtResource("1_8wf8d")
+
+[node name="TopLeftCorner" type="Sprite2D" parent="Bounds" unique_id=235048005]
+position = Vector2(16, 16)
+texture = ExtResource("1_8wf8d")
+
+[node name="BottomLeftCorner" type="Sprite2D" parent="Bounds" unique_id=1628939594]
+position = Vector2(16, 632)
+texture = ExtResource("1_8wf8d")
+
+[node name="Left" type="StaticBody2D" parent="Bounds" unique_id=1476034876]
+collision_layer = 4
+collision_mask = 4
+
+[node name="LeftBar" type="Sprite2D" parent="Bounds/Left" unique_id=314510421]
+position = Vector2(16, 324)
+scale = Vector2(1, 18.25)
+texture = ExtResource("2_nhghi")
+
+[node name="Right" type="StaticBody2D" parent="Bounds" unique_id=1846879077]
+collision_layer = 4
+collision_mask = 4
+
+[node name="RightBar" type="Sprite2D" parent="Bounds/Right" unique_id=1550002320]
+position = Vector2(1136, 324)
+scale = Vector2(1.0000001, 18.249998)
+texture = ExtResource("2_nhghi")
+
+[node name="Top" type="StaticBody2D" parent="Bounds" unique_id=445664914]
+collision_layer = 4
+collision_mask = 4
+
+[node name="TopBar" type="Sprite2D" parent="Bounds/Top" unique_id=2064029480]
+position = Vector2(575.99994, 16)
+scale = Vector2(33.999996, 1)
+texture = ExtResource("3_8whcy")
+
+[node name="Bottom" type="StaticBody2D" parent="Bounds" unique_id=409974269]
+collision_layer = 4
+collision_mask = 4
+
+[node name="BottomBar" type="Sprite2D" parent="Bounds/Bottom" unique_id=1996820739]
+position = Vector2(575.95245, 632)
+scale = Vector2(33.997025, 0.9999998)
+texture = ExtResource("3_8whcy")
+
+[node name="CustomBall" parent="." unique_id=1164180313 node_paths=PackedStringArray("_walls") instance=ExtResource("4_20br8")]
+position = Vector2(508, 308)
+_walls = [NodePath("../Bounds/Left/LeftBar"), NodePath("../Bounds/Right/RightBar"), NodePath("../Bounds/Top/TopBar"), NodePath("../Bounds/Bottom/BottomBar")]

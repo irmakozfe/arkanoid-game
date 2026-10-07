@@ -1,4 +1,5 @@
 using GArkanoid.Common;
+using GArkanoid.Systems;
 using Godot;
 using System.Collections.Generic;
 
@@ -44,15 +45,28 @@ public partial class Level : Node2D
 		{
 			_paddle = this.GetNode<Paddle>();
 			// same as this : _paddle = NodeExtensions.GetNode<Paddle>(this);
+		}	
 
-			if (_ball == null)
+		if (_ball == null)
 			{
 				_ball = this.GetNode<Ball>();
 			}
 
-			IList<Ball> balls = this.GetNodes<Ball>(recursive:true);
-			GD.Print($"Found {balls.Count} balls!");
-		}		
+		IList<Ball> balls = this.GetNodes<Ball>(recursive:true);
+			GD.Print($"Found {balls.Count} balls!");	
 	}
+
+	public override void _Input(InputEvent @event)
+		{
+			base._Input(@event);
+
+			
+			if (@event.IsActionPressed("TestScore")) 
+			{
+			// great for button presses but not for moving constantly like mouse, bcs input wont be caled every single frame
+			//magic number is only used for testing get rid of these! = 10
+			GameManager.Instance.Score += 10;	
+			}
+		}
 }
 }

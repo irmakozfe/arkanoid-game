@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://dh28m1clwhqe2" path="res://Art/GArkanoid-art/32/vertical.png" id="5_88x46"]
 [ext_resource type="Texture2D" uid="uid://b608ifw32cjxg" path="res://Art/GArkanoid-art/32/horizontal.png" id="6_88x46"]
 [ext_resource type="Script" uid="uid://b3y1xluu1if2l" path="res://Code/Testing/ScoreTest.cs" id="7_ns3so"]
+[ext_resource type="Script" uid="uid://cd11a3by61hts" path="res://Code/Systems/GameManager.cs" id="8_tkqtc"]
+[ext_resource type="PackedScene" uid="uid://bv8rgxl06h0pb" path="res://Scene/Levels/GreenBlock.tscn" id="9_t3agd"]
+[ext_resource type="PackedScene" uid="uid://c8h6bl3y2025h" path="res://Scene/Levels/PurpleBlock.tscn" id="10_w6yf7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68yrv"]
 size = Vector2(32, 32.109592)
@@ -22,7 +25,7 @@ script = ExtResource("1_88x46")
 
 [node name="Ball" parent="." unique_id=2103484260 node_paths=PackedStringArray("_paddle") instance=ExtResource("1_bcosh")]
 position = Vector2(527, 453)
-collision_mask = 6
+collision_mask = 14
 _paddle = NodePath("../Paddle")
 
 [node name="Paddle" parent="." unique_id=148408937 instance=ExtResource("2_gkjhl")]
@@ -104,3 +107,44 @@ shape = SubResource("RectangleShape2D_bvjf5")
 
 [node name="ScoreTest" type="Node" parent="." unique_id=1598202673]
 script = ExtResource("7_ns3so")
+
+[node name="GameManager" type="Node" parent="." unique_id=1972846599]
+script = ExtResource("8_tkqtc")
+
+[node name="Blocks" type="Node2D" parent="." unique_id=696846812]
+
+[node name="Block" parent="Blocks" unique_id=560840623 instance=ExtResource("9_t3agd")]
+position = Vector2(455, 189)
+collision_layer = 8
+
+[node name="Block2" parent="Blocks" unique_id=1218642457 instance=ExtResource("9_t3agd")]
+position = Vector2(551, 189)
+collision_layer = 8
+
+[node name="Block3" parent="Blocks" unique_id=629776953 instance=ExtResource("9_t3agd")]
+position = Vector2(648, 189)
+collision_layer = 8
+
+[node name="Block4" parent="Blocks" unique_id=361970780 instance=ExtResource("9_t3agd")]
+position = Vector2(359, 189)
+collision_layer = 8
+
+[node name="Block5" parent="Blocks" unique_id=363324563 instance=ExtResource("10_w6yf7")]
+position = Vector2(425, 222)
+collision_layer = 8
+
+[node name="Block6" parent="Blocks" unique_id=1167798719 instance=ExtResource("10_w6yf7")]
+position = Vector2(522, 222)
+collision_layer = 8
+
+[node name="Block7" parent="Blocks" unique_id=1679653806 instance=ExtResource("10_w6yf7")]
+position = Vector2(618, 222)
+collision_layer = 8
+
+[node name="Block8" parent="Blocks" unique_id=1728819457 instance=ExtResource("9_t3agd")]
+position = Vector2(745, 189)
+collision_layer = 8
+
+[node name="Block9" parent="Blocks" unique_id=2049220130 instance=ExtResource("10_w6yf7")]
+position = Vector2(714, 222)
+collision_layer = 8

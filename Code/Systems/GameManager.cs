@@ -37,7 +37,7 @@ public partial class GameManager : Node
 		public int Score
 		{
 			get{return _score;}
-			set
+			private set
 			{
 				// TODO validate the score value 
 				_score = value;
@@ -49,6 +49,18 @@ public partial class GameManager : Node
 		protected virtual void Initialize()
 		{
 			GD.Print("GameManager is initialized.");
+		}
+
+		public void AddScore(int scoreToAdd)
+		{
+			if (scoreToAdd <= 0)
+			{
+				return;
+			}
+			
+			Score += scoreToAdd;
+
+			
 		}
 
 }

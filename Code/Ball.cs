@@ -56,7 +56,16 @@ namespace GArkanoid.Entities
 
 			if(collision != null)
 			{
-				_direction = _direction.Bounce(collision.GetNormal());
+				GodotObject collider = collision.GetCollider();
+				if (collider != null)
+				{
+					if (collider is Block block)
+					{
+						block.Hit();
+					}
+				}
+				_direction = _direction.Bounce(collision.GetNormal()).Normalized();
+				Velocity = _direction * _speed;
 			}
 		}
 }

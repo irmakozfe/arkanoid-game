@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://l6wqjqk8rq57"]
+
+[ext_resource type="Script" uid="uid://dfq27gvo4vyxn" path="res://Code/Level/Block.cs" id="1_yr5bu"]
+[ext_resource type="Texture2D" uid="uid://dlxomy8470vb1" path="res://Art/GArkanoid-art/32/block.png" id="2_pj7pf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xgk26"]
+size = Vector2(96, 32)
+
+[node name="Block" type="StaticBody2D" unique_id=560840623]
+script = ExtResource("1_yr5bu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1631926338]
+scale = Vector2(1.5, 1)
+texture = ExtResource("2_pj7pf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=541499768]
+shape = SubResource("RectangleShape2D_xgk26")

@@ -63,6 +63,7 @@ TestScore={
 2d_physics/layer_1="BallLayer"
 2d_physics/layer_2="PadelLayer"
 2d_physics/layer_3="WallLayer"
+2d_physics/layer_4="Block"
 
 [physics]
 

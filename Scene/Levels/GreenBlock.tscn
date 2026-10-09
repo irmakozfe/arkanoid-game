@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bv8rgxl06h0pb"]
+
+[ext_resource type="PackedScene" uid="uid://l6wqjqk8rq57" path="res://Scene/Levels/Block.tscn" id="1_bupmb"]
+
+[node name="Block" unique_id=560840623 instance=ExtResource("1_bupmb")]
+modulate = Color(0.9824994, 0.92081463, 2.3102762e-06, 1)

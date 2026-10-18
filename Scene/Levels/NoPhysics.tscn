@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://ducdov7jkbgts" path="res://Art/GArkanoid-art/32/corner.png" id="1_8wf8d"]
 [ext_resource type="Texture2D" uid="uid://dh28m1clwhqe2" path="res://Art/GArkanoid-art/32/vertical.png" id="2_nhghi"]
 [ext_resource type="Texture2D" uid="uid://b608ifw32cjxg" path="res://Art/GArkanoid-art/32/horizontal.png" id="3_8whcy"]
-[ext_resource type="PackedScene" uid="uid://y76nubf3doea" path="res://Scene/CustomBall.tscn" id="4_20br8"]
+[ext_resource type="PackedScene" uid="uid://cj466ikkw7dxb" path="res://Scene/Characters/CustomBall.tscn" id="4_8wf8d"]
 
 [node name="NoPhysics" type="Node2D" unique_id=2034807650]
 
@@ -61,6 +61,6 @@ position = Vector2(575.95245, 632)
 scale = Vector2(33.997025, 0.9999998)
 texture = ExtResource("3_8whcy")
 
-[node name="CustomBall" parent="." unique_id=1164180313 node_paths=PackedStringArray("_walls") instance=ExtResource("4_20br8")]
-position = Vector2(508, 308)
+[node name="CustomBall" parent="." unique_id=1164180313 node_paths=PackedStringArray("_walls") instance=ExtResource("4_8wf8d")]
+position = Vector2(529, 341)
 _walls = [NodePath("../Bounds/Left/LeftBar"), NodePath("../Bounds/Right/RightBar"), NodePath("../Bounds/Top/TopBar"), NodePath("../Bounds/Bottom/BottomBar")]

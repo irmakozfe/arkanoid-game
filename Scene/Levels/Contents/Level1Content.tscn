@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dmgpdpdl7qu37"]
+
+[ext_resource type="PackedScene" uid="uid://bv8rgxl06h0pb" path="res://Scene/Blocks/GreenBlock.tscn" id="1_2d6n6"]
+[ext_resource type="PackedScene" uid="uid://c8h6bl3y2025h" path="res://Scene/Blocks/PurpleBlock.tscn" id="2_vtng4"]
+
+[node name="Bricks" type="Node2D" unique_id=1241635102]
+
+[node name="Blocks" type="Node2D" parent="." unique_id=981881914]
+
+[node name="Block" parent="Blocks" unique_id=560840623 instance=ExtResource("1_2d6n6")]
+position = Vector2(455, 189)
+collision_layer = 8
+
+[node name="Block2" parent="Blocks" unique_id=948156796 instance=ExtResource("1_2d6n6")]
+position = Vector2(551, 189)
+collision_layer = 8
+
+[node name="Block3" parent="Blocks" unique_id=651403267 instance=ExtResource("1_2d6n6")]
+position = Vector2(648, 189)
+collision_layer = 8
+
+[node name="Block4" parent="Blocks" unique_id=927853026 instance=ExtResource("1_2d6n6")]
+position = Vector2(359, 189)
+collision_layer = 8
+
+[node name="Block5" parent="Blocks" unique_id=3895543 instance=ExtResource("2_vtng4")]
+position = Vector2(425, 222)
+collision_layer = 8
+
+[node name="Block6" parent="Blocks" unique_id=1957472996 instance=ExtResource("2_vtng4")]
+position = Vector2(522, 222)
+collision_layer = 8
+
+[node name="Block7" parent="Blocks" unique_id=925885651 instance=ExtResource("2_vtng4")]
+position = Vector2(618, 222)
+collision_layer = 8
+
+[node name="Block8" parent="Blocks" unique_id=1036305603 instance=ExtResource("1_2d6n6")]
+position = Vector2(745, 189)
+collision_layer = 8
+
+[node name="Block9" parent="Blocks" unique_id=1202325908 instance=ExtResource("2_vtng4")]
+position = Vector2(714, 222)
+collision_layer = 8

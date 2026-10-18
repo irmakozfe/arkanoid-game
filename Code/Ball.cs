@@ -1,3 +1,4 @@
+using Garkanoid.Entities;
 using Godot;
 using System;
 
@@ -12,6 +13,8 @@ namespace GArkanoid.Entities
 		[Export] private Vector2 _offset = new Vector2(0, -42); // offset -> tried some numbers for the positioning 
 
 		private bool _isLaunched = false; 
+		private Vector2 _startDirection;
+
 		public float Speed
 		{
 			get { return _speed; }
@@ -25,6 +28,7 @@ namespace GArkanoid.Entities
 		public override void _Ready()
 		{
 		 _direction = _direction.Normalized();	
+		 _startDirection = _direction;
 		}
 
 		public override void _PhysicsProcess(double delta)
@@ -63,10 +67,24 @@ namespace GArkanoid.Entities
 					{
 						block.Hit();
 					}
+
+					if (collider is LifeLossArea lifeLossArea)
+					{
+						lifeLossArea.OnBallHit(this);
+						return;
+					}
 				}
 				_direction = _direction.Bounce(collision.GetNormal()).Normalized();
 				Velocity = _direction * _speed;
 			}
+		}
+
+		public void ResetBall()
+		{
+			_isLaunched = false;
+			_direction = _startDirection;
+			Velocity = Vector2.Zero;
+			GlobalPosition = _paddle.GlobalPosition + _offset;
 		}
 }
 }

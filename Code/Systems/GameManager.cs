@@ -32,8 +32,22 @@ public partial class GameManager : Node
 		[Signal]
 		public delegate void ScoreChangedEventHandler(int score);
 		
+		[Signal]
+		public delegate void LivesChangedEventHandler(int lives); 
+		
 		private int _score = 0;
+		private int _lives = 3;
 
+		public int Lives
+		{
+			get{return _lives;}
+			private set
+			{
+				_lives = Mathf.Max(value, 0);
+				GD.Print($"Lives: {_lives}");
+				EmitSignal(SignalName.LivesChanged, _lives);
+			}
+		}
 		public int Score
 		{
 			get{return _score;}
@@ -61,6 +75,22 @@ public partial class GameManager : Node
 			Score += scoreToAdd;
 
 			
+		}
+
+		public bool RemoveLife()
+		{
+
+			if (Lives <= 0) return false;
+
+			Lives--;
+
+			if(Lives == 0)
+			{
+				GD.Print("Game Over!");
+				return false;
+			}
+
+			return true;
 		}
 
 }

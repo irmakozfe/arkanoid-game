@@ -46,10 +46,10 @@ namespace GArkanoid.Entities
 			MoveAndCollide(new Vector2(moveX, 0));
 
 
-			if (Input.IsActionJustPressed("Launch"))
-			{
-				GD.Print("Ball Launched.");
-			}
+			// if (Input.IsActionJustPressed("Launch"))
+			// {
+			// 	GD.Print("Ball Launched.");
+			// }
 		}
 	}
 }

@@ -1,9 +1,13 @@
 using Godot;
 using System;
 
+// responsible for state machines , contains game data
+
 namespace GArkanoid.Systems{
+
 public partial class GameManager : Node
 {
+
 	#region Singleton
 	public static GameManager Instance
 		{
@@ -38,6 +42,10 @@ public partial class GameManager : Node
 		private int _score = 0;
 		private int _lives = 3;
 
+		private SceneTree _sceneTree = null;
+
+		// TODO: implement the FSMss
+
 		public int Lives
 		{
 			get{return _lives;}
@@ -48,6 +56,21 @@ public partial class GameManager : Node
 				EmitSignal(SignalName.LivesChanged, _lives);
 			}
 		}
+
+		public SceneTree SceneTree
+		{
+			get
+			{
+				// Lazy loading : only computed when accessed for the first time 
+				if (_sceneTree == null)
+				{
+					_sceneTree = GetTree();
+				}
+
+				return _sceneTree;
+			}
+		}
+
 		public int Score
 		{
 			get{return _score;}

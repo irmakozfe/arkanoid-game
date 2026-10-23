@@ -12,7 +12,7 @@ public partial class Level : Node2D
 
 	#region Level Content
 	[Export] private PackedScene[] _levelContents;
-	[Export] private int _levelNumber = 1;
+	[Export] private int _levelId = 1;
 	#endregion Level Content
 
 	#region References
@@ -55,10 +55,10 @@ public partial class Level : Node2D
 	
 	private void LoadLevelContent()
 		{
-			int index = _levelNumber -1;
+			int index = _levelId -1;
 			if (_levelContents == null || index < 0 || index >= _levelContents.Length)
 			{
-				GD.Print($"No content for the level {_levelNumber}");
+				GD.Print($"No content for the level {_levelId}");
 				return;
 			}
 

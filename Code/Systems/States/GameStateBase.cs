@@ -60,6 +60,8 @@ namespace Garkanoid.State
             return _targetStates.Contains(targetStateType);
         }
 
+
+        // possible approach: transitions can only happen after a frame
         public virtual void OnEnter(bool forceLoad = false)
         {
             if (forceLoad || _scene == null)
@@ -70,11 +72,28 @@ namespace Garkanoid.State
                     _scene.QueueFree();
                 }
 
-                _scene = _sceneResource.Instantiate();
-                // TODO: this causes an issue FIXME:
-                GameManager.Instance.SceneTree.Root.AddChild(_scene);
+                
 
-                // TODO: Threaded level loading (for very large complicated scenes oots)
+                _scene = _sceneResource.Instantiate();
+                // TODO: show what happens if scene addition is not delayed 
+                GameManager.Instance.SceneTree.Root.CallDeferred(Node.MethodName.AddChild, _scene);
+
+                // TODO: Threaded level loading (for very large complicated scenes oots) Godot Docs: Background Loading 
+            
+
+            }
+        }
+
+        // keepLoaded -> true: when the game is paused, the data is saved there , false: we need to unload the scene
+        // state deactivation logic. Should be run before a state is deactivated 
+        public virtual void OnExit(bool keepLoaded)
+        {
+            // && -> short circuitting
+            if (!keepLoaded && _scene != null)
+            {
+                // this scene should be unloaded and it is still loaded. Unload it:
+                _scene.QueueFree();
+                _scene = null;
 
             }
         }

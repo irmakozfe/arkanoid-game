@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bqu27e8iwq8a7"]
 
-[ext_resource type="Script" uid="uid://dwuiq1e3p40ev" path="res://Code/Level.cs" id="1_88x46"]
+[ext_resource type="Script" path="res://Code/Level.cs" id="1_88x46"]
 [ext_resource type="PackedScene" uid="uid://bjp73iv4uh5yy" path="res://Scene/Characters/Ball.tscn" id="1_bcosh"]
 [ext_resource type="PackedScene" uid="uid://bmqk08xdnbqab" path="res://Scene/Characters/Paddle.tscn" id="2_gkjhl"]
 [ext_resource type="Texture2D" uid="uid://ducdov7jkbgts" path="res://Art/GArkanoid-art/32/corner.png" id="4_vuguo"]
@@ -23,6 +23,8 @@ size = Vector2(1088, 32)
 [node name="Level" type="Node2D" unique_id=662855955]
 script = ExtResource("1_88x46")
 _levelContents = Array[PackedScene]([ExtResource("10_4cl0q")])
+_levelId = null
+_wallWidth = null
 
 [node name="Ball" parent="." unique_id=2103484260 node_paths=PackedStringArray("_paddle") instance=ExtResource("1_bcosh")]
 position = Vector2(527, 453)

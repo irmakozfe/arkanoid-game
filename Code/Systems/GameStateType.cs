@@ -3,6 +3,7 @@
 namespace GArkanoid.Systems{
     public enum GameStateType
 		{
+			// none is for error  
 			None=0,
 			MainMenu,
 			InGame,

@@ -1,5 +1,8 @@
+using Garkanoid.State;
 using Godot;
+using GodotPlugins.Game;
 using System;
+using System.Collections.Generic;
 
 // responsible for state machines , contains game data
 
@@ -9,14 +12,23 @@ public partial class GameManager : Node
 {
 
 	#region Singleton
-	public static GameManager Instance
+		public static GameManager Instance
 		{
 			get;
 			private set;
 		}
 
+		public GameManager()
+		{
+			//FIXME: this constructor is not implemented yet, do it 
+			// TODO: replace this with a proper implementation 
+			GameStateBase mainMenu = GetState(GameStateType.MainMenu);
+			mainMenu.OnEnter();
+			LoadedStates.Push(mainMenu);
+		}
+
 		//singleton functionality: 
-	public sealed override void _Ready()  // sealed: no further overrides are possible
+		public sealed override void _Ready()  // sealed: no further overrides are possible
 		{
 			GD.Print("Initializing GameManager...");
 			if(Instance == null)
@@ -30,6 +42,7 @@ public partial class GameManager : Node
 			Initialize();
 			
 		}
+
 		#endregion
 
 		// naming is important ....EventHandler();
@@ -44,7 +57,8 @@ public partial class GameManager : Node
 
 		private SceneTree _sceneTree = null;
 
-		// TODO: implement the FSMss
+		// contains all states that are currently loaded.
+		private Stack<GameStateBase> _loadedStates = new Stack<GameStateBase>();
 
 		public int Lives
 		{
@@ -69,6 +83,92 @@ public partial class GameManager : Node
 
 				return _sceneTree;
 			}
+		}
+
+		// all states derives from GameStateBase so we use GameStateBase
+		// TODO: use Dictionary instead for performance reasons 
+		private List<GameStateBase> _gameStates = new List<GameStateBase>
+		{
+			new MainMenuState(),
+			new InGameState()
+		}; 
+
+		public Stack<GameStateBase> LoadedStates {get; private set;}
+		// computive property 
+		public GameStateBase ActiveState
+		{
+			get {
+				return LoadedStates.Count > 0 
+				? LoadedStates.Peek() 
+				: null;
+			}
+		}
+
+		private GameStateBase GetState(GameStateType gameStateType)
+		{
+			foreach(GameStateBase state in _gameStates)
+			{
+				if (state.StateType == gameStateType)
+				{
+					return state;
+				}
+			}
+			return null;
+		} 
+
+		public bool ChangeState(GameStateType targetStateType, bool force = false)
+		{
+			// check transition to the next state is possible (are there any errors, is it valid?)
+			if(ActiveState != null && !ActiveState.CanTransitionTo(targetStateType))
+			{
+				GD.PushError($"Transision {ActiveState.StateType} was not legal");
+				return false;
+			}
+
+			GameStateBase nextState = GetState(targetStateType);
+			if(nextState == null)
+			{
+				GD.PushError($"Next state {targetStateType} is not found!");
+				return false;
+			}
+
+			if (nextState.IsAdditive)
+			{
+				// ? -> execute the method only when the active state is not null 
+				ActiveState?.OnExit(keepLoaded: true);
+			} else
+			{
+				while(LoadedStates.Count > 0)
+				{
+					GameStateBase poppedState = LoadedStates.Pop();
+					poppedState.OnExit(keepLoaded: false);
+				}
+			}
+
+			LoadedStates.Push(nextState);
+			ActiveState.OnEnter(force);
+
+			return true;
+		}	
+
+		// exit from pause or settings menu to the prevous menu
+		// TODO: refactor changestate method to support this corner case and get rid of this method
+		public bool ActivatePreviousState()
+		{
+		if (LoadedStates.Count < 2)
+			{
+				GD.PushError("No previous state to activate");
+				return false;
+			}	
+
+			// Pop the current state from the stack
+			GameStateBase previousState = LoadedStates.Pop();
+			previousState.OnExit(keepLoaded:false);
+			
+			// activate the already loaded, new active state
+			ActiveState.OnEnter();
+
+			return true;
 		}
 
 		public int Score

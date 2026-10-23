@@ -20,6 +20,14 @@ namespace Garkanoid.State
 
         }
 
+        public override void OnExit(bool keepLoaded)
+        {
+            // call parent classes' implementation first 
+            base.OnExit(keepLoaded);
+
+            // do the rest deactivation here
+        }
+
 
     }
 

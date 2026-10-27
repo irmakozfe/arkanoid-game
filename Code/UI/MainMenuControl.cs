@@ -25,6 +25,7 @@ public partial class MainMenuControl : Control
 
 		private void OnNewGamePressed()
 		{
+			GameManager.Instance.ResetGame();
 			if (!GameManager.Instance.ChangeState(GameStateType.InGame)){
 				GD.PushError("Loading a new game failed");
 			}

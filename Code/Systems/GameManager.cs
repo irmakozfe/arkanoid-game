@@ -1,6 +1,5 @@
 using Garkanoid.State;
 using Godot;
-using GodotPlugins.Game;
 using System;
 using System.Collections.Generic;
 
@@ -20,27 +19,26 @@ public partial class GameManager : Node
 
 		public GameManager()
 		{
-			//FIXME: this constructor is not implemented yet, do it 
-			// TODO: replace this with a proper implementation 
-			GameStateBase mainMenu = GetState(GameStateType.MainMenu);
-			mainMenu.OnEnter();
-			LoadedStates.Push(mainMenu);
+			GD.Print("Initializing Game Manager");
+			if (Instance == null)
+			{
+				Instance = this;
+			}
+			else if (Instance != this)
+			{
+				QueueFree();
+				return;
+			}
 		}
 
 		//singleton functionality: 
 		public sealed override void _Ready()  // sealed: no further overrides are possible
 		{
-			GD.Print("Initializing GameManager...");
-			if(Instance == null)
-			{
-				Instance = this;
-			} else if (Instance != this) {
-				// the one and only instance class already exists.
-				QueueFree(); // delete it safely 
-				return; // makes sure that nothing happens after queuefree
-			}
-			Initialize();
-			
+			SceneTree.CurrentScene.QueueFree();
+
+			GameStateBase mainMenu = GetState(GameStateType.MainMenu);
+			mainMenu.OnEnter();
+			LoadedStates.Push(mainMenu);
 		}
 
 		#endregion
@@ -93,8 +91,7 @@ public partial class GameManager : Node
 			new InGameState()
 		}; 
 
-		public Stack<GameStateBase> LoadedStates {get; private set;}
-		// computive property 
+		public Stack<GameStateBase> LoadedStates { get; private set; } = new Stack<GameStateBase>();
 		public GameStateBase ActiveState
 		{
 			get {

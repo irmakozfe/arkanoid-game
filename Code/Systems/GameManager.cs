@@ -88,7 +88,9 @@ public partial class GameManager : Node
 		private List<GameStateBase> _gameStates = new List<GameStateBase>
 		{
 			new MainMenuState(),
-			new InGameState()
+			new InGameState(),
+			new GameOverState(),
+			new SettingsState()
 		}; 
 
 		public Stack<GameStateBase> LoadedStates { get; private set; } = new Stack<GameStateBase>();
@@ -207,10 +209,18 @@ public partial class GameManager : Node
 			if(Lives == 0)
 			{
 				GD.Print("Game Over!");
+				ChangeState(GameStateType.GameOver);
+
 				return false;
 			}
 
 			return true;
+		}
+
+		public void ResetGame()
+		{
+			Score =0;
+			Lives = 3; 
 		}
 
 }

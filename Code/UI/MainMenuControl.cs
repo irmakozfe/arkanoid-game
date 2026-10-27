@@ -11,13 +11,16 @@ public partial class MainMenuControl : Control
 
 		public override void _EnterTree()
 		{
-			//TODO: subscribe to the rest of the buttons Pressed signals as well
 			_newGameButton.Pressed += OnNewGamePressed;
+			_settingsButton.Pressed +=  OnSettingsPressed;
+			_quitButton.Pressed += OnQuitPressed;
 		}
 
 		public override void _ExitTree()
 		{
 			_newGameButton.Pressed -= OnNewGamePressed;
+			_settingsButton.Pressed -= OnSettingsPressed;
+			_quitButton.Pressed -= OnQuitPressed;
 		}
 
 		private void OnNewGamePressed()
@@ -26,6 +29,19 @@ public partial class MainMenuControl : Control
 				GD.PushError("Loading a new game failed");
 			}
 
+		}
+
+		private void OnSettingsPressed()
+		{
+			if (!GameManager.Instance.ChangeState(GameStateType.Settings))
+			{
+				GD.PushError("Settings screen is not found");
+			}
+		}
+
+		private void OnQuitPressed()
+		{
+			// TODO: which GameStateType is suitable for here?
 		}
 
 }

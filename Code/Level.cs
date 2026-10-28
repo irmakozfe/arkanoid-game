@@ -23,8 +23,15 @@ public partial class Level : Node2D
 	public Paddle Paddle { get { return _paddle; } }
 	public Ball Ball { get { return _ball; } }
 	public int WallWidth { get { return _wallWidth; } }
-	#endregion References
+		#endregion References
 
+		public override void _Input(InputEvent @event)
+		{
+			if (@event.IsActionPressed(Config.PauseActionName))
+			{
+				GameManager.Instance.ChangeState(GameStateType.Pause);
+			}
+		}
 
 	public override void _Ready()
 	// Called when the node enters the scene tree for the first time.

@@ -1,3 +1,4 @@
+using Garkanoid.Pause;
 using Garkanoid.State;
 using Godot;
 using System;
@@ -90,7 +91,8 @@ public partial class GameManager : Node
 			new MainMenuState(),
 			new InGameState(),
 			new GameOverState(),
-			new SettingsState()
+			new SettingsState(),
+			new PauseState()
 		}; 
 
 		public Stack<GameStateBase> LoadedStates { get; private set; } = new Stack<GameStateBase>();
@@ -115,6 +117,7 @@ public partial class GameManager : Node
 			return null;
 		} 
 
+		// to make the transitions -> make the method async  (coroutine)
 		public bool ChangeState(GameStateType targetStateType, bool force = false)
 		{
 			// check transition to the next state is possible (are there any errors, is it valid?)

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cpob8riumhl4o" path="res://Art/BG/Light_blue.png" id="2_do3lv"]
 
 [node name="Settings" type="Control" unique_id=917844898 node_paths=PackedStringArray("_closeButton")]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,9 +12,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_snkf2")
-_closeButton = NodePath("TextureRect/VBoxContainer/Close")
+_closeButton = NodePath("TextureRect/Buttons/Close")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=423655071]
+[node name="TextureRect" type="NinePatchRect" parent="." unique_id=1682547302]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,7 +26,6 @@ offset_bottom = -28.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_do3lv")
-expand_mode = 1
 
 [node name="Label" type="Label" parent="TextureRect" unique_id=308239272]
 layout_mode = 1
@@ -42,7 +42,7 @@ theme_override_font_sizes/font_size = 24
 text = "Settings"
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect" unique_id=425735183]
+[node name="Buttons" type="VBoxContainer" parent="TextureRect" unique_id=425735183]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -55,6 +55,14 @@ offset_right = 50.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Close" type="Button" parent="TextureRect/VBoxContainer" unique_id=1910984157]
+[node name="Close" type="Button" parent="TextureRect/Buttons" unique_id=1910984157]
 layout_mode = 2
 text = "Close"
+
+[node name="AudioControls" type="VBoxContainer" parent="TextureRect" unique_id=1972497293]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2

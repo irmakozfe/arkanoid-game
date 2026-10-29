@@ -11,8 +11,7 @@ namespace Garkanoid.State
 
         public SettingsState()
         {
-            AddTargetState(GameStateType.InGame);
-            AddTargetState(GameStateType.GameOver);
+            AddTargetState(GameStateType.MainMenu);
         }
 
         public override bool IsAdditive => true;

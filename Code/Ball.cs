@@ -48,7 +48,7 @@ namespace GArkanoid.Entities
 		{
 			GlobalPosition = _paddle.GlobalPosition + _offset;
 
-			if (Input.IsActionJustPressed("Launch"))
+			if (Input.IsActionJustPressed(Config.LaunchActionName))
 			{
 				_isLaunched = true;
 			}

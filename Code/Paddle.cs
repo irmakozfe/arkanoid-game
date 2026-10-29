@@ -23,7 +23,7 @@ namespace GArkanoid.Entities
 		{
 			float deltaTime = (float)delta;
 
-			if (Input.IsActionJustPressed("ClickToggle")) 
+			if (Input.IsActionJustPressed(Config.ClickToggleActionName)) 
 			{
 				_controlMode = _controlMode == ControlMode.Keyboard 
 				? ControlMode.Mouse
@@ -38,7 +38,7 @@ namespace GArkanoid.Entities
 				break;
 
 				case ControlMode.Keyboard:
-				float horizontal = Input.GetAxis("Left", "Right");
+				float horizontal = Input.GetAxis(Config.axisNameLeft, Config.axisNameRight);
 				moveX = horizontal * _speed * deltaTime;
 				break;
 			}

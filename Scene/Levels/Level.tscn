@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://c7birnfofiham" path="res://Code/LifeLossArea.cs" id="7_8tnob"]
 [ext_resource type="Script" uid="uid://b3y1xluu1if2l" path="res://Code/Testing/ScoreTest.cs" id="7_ns3so"]
 [ext_resource type="PackedScene" uid="uid://dmgpdpdl7qu37" path="res://Scene/Levels/Contents/Level1Content.tscn" id="10_4cl0q"]
+[ext_resource type="Script" uid="uid://bcm0qlkutil10" path="res://Code/UI/LevelUI.cs" id="10_26jgb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68yrv"]
 size = Vector2(32, 32.109592)
@@ -108,3 +109,29 @@ shape = SubResource("RectangleShape2D_bvjf5")
 
 [node name="ScoreTest" type="Node" parent="." unique_id=1598202673]
 script = ExtResource("7_ns3so")
+
+[node name="LevelUI" type="CanvasLayer" parent="." unique_id=42406402 node_paths=PackedStringArray("_scoreLabel", "_livesLabel")]
+script = ExtResource("10_26jgb")
+_scoreLabel = NodePath("ScoreLabel")
+_livesLabel = NodePath("LivesLabel")
+
+[node name="LivesLabel" type="Label" parent="LevelUI" unique_id=1875630888]
+offset_left = 43.0
+offset_top = 35.0
+offset_right = 111.0
+offset_bottom = 58.0
+theme_override_font_sizes/font_size = 20
+text = "Lives: XX"
+
+[node name="ScoreLabel" type="Label" parent="LevelUI" unique_id=1763566744]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -162.0
+offset_top = 35.0
+offset_right = -38.0
+offset_bottom = 63.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 20
+text = "Score: YYYYY"
+horizontal_alignment = 2

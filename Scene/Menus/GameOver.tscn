@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://b38tft106y4gb"]
 
 [ext_resource type="Script" uid="uid://b05s51n0d7nf2" path="res://Code/UI/GameOverControl.cs" id="1_mgflb"]
+[ext_resource type="Texture2D" uid="uid://dxksouxyxwygh" path="res://Art/BG/mainmenu_frame.png" id="2_sevdd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_34fxp"]
+bg_color = Color(0.41568628, 0.12156863, 0.1254902, 0.53333336)
 
 [node name="GameOver" type="Control" unique_id=75547662 node_paths=PackedStringArray("_retryButton", "_backToMenuButton")]
 layout_mode = 3
@@ -10,35 +14,51 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mgflb")
-_retryButton = NodePath("Buttons/Retry")
-_backToMenuButton = NodePath("Buttons/BackToMenu")
+_retryButton = NodePath("TextureRect/Buttons/Retry")
+_backToMenuButton = NodePath("TextureRect/Buttons/BackToMenu")
 
-[node name="Label" type="Label" parent="." unique_id=1372767007]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=794603126]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_sevdd")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="TextureRect" unique_id=1372767007]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 30.0
-offset_bottom = 64.0
+offset_left = 3.0
+offset_top = 150.0
+offset_right = -12.0
+offset_bottom = 185.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 30
 text = "Game Over"
 horizontal_alignment = 1
 
-[node name="Buttons" type="VBoxContainer" parent="." unique_id=1855190802]
+[node name="Buttons" type="VBoxContainer" parent="TextureRect" unique_id=1855190802]
 layout_mode = 0
-offset_left = 418.0
-offset_top = 216.0
-offset_right = 766.0
-offset_bottom = 332.0
+offset_left = 400.0
+offset_top = 250.0
+offset_right = 748.0
+offset_bottom = 366.0
 
-[node name="Retry" type="Button" parent="Buttons" unique_id=1594076045]
+[node name="Retry" type="Button" parent="TextureRect/Buttons" unique_id=1594076045]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_34fxp")
 text = "Retry
 "
 
-[node name="BackToMenu" type="Button" parent="Buttons" unique_id=1190717503]
+[node name="BackToMenu" type="Button" parent="TextureRect/Buttons" unique_id=1190717503]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_34fxp")
 text = "Back to Menu
 "

@@ -1,7 +1,14 @@
 [gd_scene format=3 uid="uid://c6ti0oewq38yb"]
 
 [ext_resource type="Script" uid="uid://bne6c2rgriqsl" path="res://Code/UI/MainMenuControl.cs" id="1_d3xep"]
+[ext_resource type="Texture2D" uid="uid://dxksouxyxwygh" path="res://Art/BG/mainmenu_frame.png" id="2_34fxp"]
 [ext_resource type="AudioStream" uid="uid://cp445kkpfw2ee" path="res://Audio/579825__szegvari__electronic-cinematic-music.wav" id="2_gby83"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_68yrv"]
+bg_color = Color(0.41568628, 0.12156863, 0.1254902, 0.53333336)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ghe0m"]
+bg_color = Color(0.41568628, 0.12156863, 0.1254902, 0.53333336)
 
 [node name="MainMenu" type="Control" unique_id=1022460355 node_paths=PackedStringArray("_newGameButton", "_settingsButton", "_quitButton")]
 layout_mode = 3
@@ -11,22 +18,32 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_d3xep")
-_newGameButton = NodePath("VBoxContainer/StartButton")
-_settingsButton = NodePath("VBoxContainer/SettingsButton")
-_quitButton = NodePath("VBoxContainer/QuitButton")
+_newGameButton = NodePath("TextureRect/VBoxContainer/StartButton")
+_settingsButton = NodePath("TextureRect/VBoxContainer/SettingsButton")
+_quitButton = NodePath("TextureRect/VBoxContainer/QuitButton")
 
-[node name="Label" type="Label" parent="." unique_id=1550174743]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1754143349]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_34fxp")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="TextureRect" unique_id=1550174743]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 30.0
-offset_bottom = 53.0
+offset_top = 150.0
+offset_bottom = 185.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 24
-text = "Menu"
+theme_override_font_sizes/font_size = 30
+text = "Arkanoid Game"
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=306394935]
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect" unique_id=306394935]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -39,21 +56,27 @@ offset_bottom = 50.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="StartButton" type="Button" parent="VBoxContainer" unique_id=563087913]
+[node name="StartButton" type="Button" parent="TextureRect/VBoxContainer" unique_id=563087913]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_68yrv")
 text = "Start
 "
 
-[node name="SettingsButton" type="Button" parent="VBoxContainer" unique_id=1047789097]
+[node name="SettingsButton" type="Button" parent="TextureRect/VBoxContainer" unique_id=1047789097]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_ghe0m")
 text = "Settings
 "
 
-[node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=1666160365]
+[node name="QuitButton" type="Button" parent="TextureRect/VBoxContainer" unique_id=1666160365]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_ghe0m")
 text = "Quit"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="." unique_id=836204624]

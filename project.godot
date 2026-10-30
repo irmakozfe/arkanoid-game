@@ -14,6 +14,10 @@ config/name="arkanoid-game"
 run/main_scene="uid://bqu27e8iwq8a7"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 
+[audio]
+
+buses/default_bus_layout="uid://bs4xqsnkqpvbl"
+
 [autoload]
 
 GameManager="*uid://cd11a3by61hts"

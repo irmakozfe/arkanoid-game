@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 namespace Garkanoid.UI{
-public partial class AudioControl : VBoxContainer
+public partial class AudioControl : HBoxContainer
 {
 	// audio labels are measured in decibel 
 	[Signal]

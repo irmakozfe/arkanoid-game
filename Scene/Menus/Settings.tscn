@@ -1,8 +1,14 @@
 [gd_scene format=3 uid="uid://g6itxy4btx8v"]
 
 [ext_resource type="Script" uid="uid://bhehvhqicte8r" path="res://Code/UI/SettingsControl.cs" id="1_snkf2"]
-[ext_resource type="Texture2D" uid="uid://cpob8riumhl4o" path="res://Art/BG/Light_blue.png" id="2_do3lv"]
+[ext_resource type="Texture2D" uid="uid://d2pfoeswasc73" path="res://Art/BG/settings_frame.png" id="2_500vd"]
 [ext_resource type="PackedScene" uid="uid://blej4fy8k1lp2" path="res://Scene/Menus/Level1Content.tscn" id="3_500vd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_68yrv"]
+bg_color = Color(0.41568628, 0.12156863, 0.1254902, 0.53333336)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ghe0m"]
+bg_color = Color(0.41568628, 0.12156863, 0.1254902, 0.53333336)
 
 [node name="Settings" type="Control" unique_id=917844898 node_paths=PackedStringArray("_closeButton")]
 process_mode = 3
@@ -13,7 +19,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_snkf2")
-_closeButton = NodePath("TextureRect/Buttons/Close")
+_closeButton = NodePath("TextureRect/MarginContainer/VBoxContainer/Buttons/Close")
 _masterBusName = "Master"
 _musicBusName = "Music"
 _sfxBusName = "SFX"
@@ -25,53 +31,53 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 324.0
 offset_top = 20.0
-offset_right = -328.0
-offset_bottom = -28.0
+offset_right = -372.0
+offset_bottom = -89.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_do3lv")
+texture = ExtResource("2_500vd")
 
-[node name="Label" type="Label" parent="TextureRect" unique_id=308239272]
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect" unique_id=1153886578]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -22.5
-offset_top = 30.0
-offset_right = 22.5
-offset_bottom = 53.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 80
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/MarginContainer" unique_id=1321539088]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TextureRect/MarginContainer/VBoxContainer" unique_id=308239272]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.71004736, 0.71004736, 0.71004736, 1)
+theme_override_colors/font_shadow_color = Color(0.41568628, 0.12156863, 0.1254902, 0.53333336)
+theme_override_colors/font_outline_color = Color(0.41568628, 0.12156863, 0.1254902, 0.53333336)
 theme_override_font_sizes/font_size = 24
 text = "Settings"
 horizontal_alignment = 1
 
-[node name="Buttons" type="HBoxContainer" parent="TextureRect" unique_id=2054154805]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 15.0
-offset_top = -70.0
-offset_right = -12.0
-offset_bottom = -43.0
-grow_horizontal = 2
-grow_vertical = 0
+[node name="AudioControls" parent="TextureRect/MarginContainer/VBoxContainer" unique_id=1519130344 instance=ExtResource("3_500vd")]
+layout_mode = 2
 
-[node name="Close" type="Button" parent="TextureRect/Buttons" unique_id=1910984157]
+[node name="Buttons" type="HBoxContainer" parent="TextureRect/MarginContainer/VBoxContainer" unique_id=2054154805]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="Close" type="Button" parent="TextureRect/MarginContainer/VBoxContainer/Buttons" unique_id=1910984157]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_68yrv")
 text = "Close"
 
-[node name="Apply" type="Button" parent="TextureRect/Buttons" unique_id=1108333397]
+[node name="Apply" type="Button" parent="TextureRect/MarginContainer/VBoxContainer/Buttons" unique_id=1108333397]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_ghe0m")
 text = "Apply"
-
-[node name="AudioControls" parent="TextureRect" unique_id=1519130344 instance=ExtResource("3_500vd")]
-layout_mode = 1
-offset_left = 1.0
-offset_top = 58.0
-offset_right = -2.0
-offset_bottom = 165.0

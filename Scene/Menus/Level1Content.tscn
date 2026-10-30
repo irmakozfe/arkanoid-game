@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://blej4fy8k1lp2"]
+
+[ext_resource type="Script" uid="uid://cwmwvhopi85vb" path="res://Code/UI/AudioControl.cs" id="1_6h27f"]
+
+[node name="AudioControls" type="VBoxContainer" unique_id=1519130344]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -1.0
+offset_top = 64.0
+offset_bottom = 161.0
+grow_horizontal = 2
+
+[node name="Audio" type="Label" parent="." unique_id=1077011348]
+layout_mode = 2
+text = "Audio"
+horizontal_alignment = 1
+
+[node name="MasterAudioControl" type="HBoxContainer" parent="." unique_id=1875681265 node_paths=PackedStringArray("_volumeSlider", "_nameLabel", "_volumeLabel")]
+layout_mode = 2
+script = ExtResource("1_6h27f")
+_volumeSlider = NodePath("HSlider")
+_nameLabel = NodePath("Bus")
+_volumeLabel = NodePath("Label")
+
+[node name="Bus" type="Label" parent="MasterAudioControl" unique_id=1631326826]
+layout_mode = 2
+text = "Audio Bus"
+
+[node name="HSlider" type="HSlider" parent="MasterAudioControl" unique_id=1896826927]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+
+[node name="Label" type="Label" parent="MasterAudioControl" unique_id=1665583639]
+layout_mode = 2
+text = "100"
+
+[node name="MusicAudioControl" type="HBoxContainer" parent="." unique_id=2037522535 node_paths=PackedStringArray("_volumeSlider", "_nameLabel", "_volumeLabel")]
+layout_mode = 2
+script = ExtResource("1_6h27f")
+_volumeSlider = NodePath("HSlider")
+_nameLabel = NodePath("Music")
+_volumeLabel = NodePath("Label")
+
+[node name="Music" type="Label" parent="MusicAudioControl" unique_id=2022643804]
+layout_mode = 2
+text = "Music"
+
+[node name="HSlider" type="HSlider" parent="MusicAudioControl" unique_id=2094520582]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+
+[node name="Label" type="Label" parent="MusicAudioControl" unique_id=740531928]
+layout_mode = 2
+text = "100"
+
+[node name="SFXAudioControl" type="HBoxContainer" parent="." unique_id=736048414 node_paths=PackedStringArray("_volumeSlider", "_nameLabel", "_volumeLabel")]
+layout_mode = 2
+script = ExtResource("1_6h27f")
+_volumeSlider = NodePath("HSlider")
+_nameLabel = NodePath("SFX")
+_volumeLabel = NodePath("Label")
+
+[node name="SFX" type="Label" parent="SFXAudioControl" unique_id=85282297]
+layout_mode = 2
+text = "SFX"
+
+[node name="HSlider" type="HSlider" parent="SFXAudioControl" unique_id=389032952]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+
+[node name="Label" type="Label" parent="SFXAudioControl" unique_id=128763982]
+layout_mode = 2
+text = "100"

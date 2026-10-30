@@ -27,6 +27,17 @@ window/stretch/aspect="expand"
 
 project/assembly_name="arkanoid-game"
 
+[file_customization]
+
+folder_colors={
+"res://UI/": "teal"
+}
+
+[gui]
+
+theme/custom="uid://dd0dfp40n01uw"
+theme/custom_font="uid://d1x78pxj3vp01"
+
 [input]
 
 Left={

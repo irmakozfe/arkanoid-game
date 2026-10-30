@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c6ti0oewq38yb"]
 
 [ext_resource type="Script" uid="uid://bne6c2rgriqsl" path="res://Code/UI/MainMenuControl.cs" id="1_d3xep"]
+[ext_resource type="AudioStream" uid="uid://cp445kkpfw2ee" path="res://Audio/579825__szegvari__electronic-cinematic-music.wav" id="2_gby83"]
 
 [node name="MainMenu" type="Control" unique_id=1022460355 node_paths=PackedStringArray("_newGameButton", "_settingsButton", "_quitButton")]
 layout_mode = 3
@@ -54,3 +55,8 @@ text = "Settings
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "Quit"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="." unique_id=836204624]
+stream = ExtResource("2_gby83")
+autoplay = true
+bus = &"Music"

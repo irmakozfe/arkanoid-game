@@ -1,5 +1,6 @@
 using Garkanoid.Pause;
 using Garkanoid.State;
+using GArkanoid.Entities;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -51,8 +52,8 @@ public partial class GameManager : Node
 		[Signal]
 		public delegate void LivesChangedEventHandler(int lives); 
 		
-		private int _score = 0;
-		private int _lives = 3;
+		private int _score = Config.InitialScore;
+		private int _lives = Config.InitialLives;
 
 		private SceneTree _sceneTree = null;
 

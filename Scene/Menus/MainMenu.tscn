@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bne6c2rgriqsl" path="res://Code/UI/MainMenuControl.cs" id="1_d3xep"]
 [ext_resource type="Texture2D" uid="uid://dxksouxyxwygh" path="res://Art/BG/mainmenu_frame.png" id="2_34fxp"]
-[ext_resource type="AudioStream" uid="uid://cp445kkpfw2ee" path="res://Audio/579825__szegvari__electronic-cinematic-music.wav" id="2_gby83"]
+[ext_resource type="AudioStream" uid="uid://drbrpxxq4476a" path="res://Audio/387440__frankum__electronic-music-loop-001-accurate-time.wav" id="3_34fxp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_68yrv"]
 bg_color = Color(0.41568628, 0.12156863, 0.1254902, 0.53333336)
@@ -80,6 +80,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_ghe0m")
 text = "Quit"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="." unique_id=836204624]
-stream = ExtResource("2_gby83")
+stream = ExtResource("3_34fxp")
 autoplay = true
 bus = &"Music"

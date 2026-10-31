@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://b3y1xluu1if2l" path="res://Code/Testing/ScoreTest.cs" id="7_ns3so"]
 [ext_resource type="PackedScene" uid="uid://dmgpdpdl7qu37" path="res://Scene/Levels/Contents/Level1Content.tscn" id="10_4cl0q"]
 [ext_resource type="Script" uid="uid://bcm0qlkutil10" path="res://Code/UI/LevelUI.cs" id="10_26jgb"]
+[ext_resource type="AudioStream" uid="uid://cp445kkpfw2ee" path="res://Audio/579825__szegvari__electronic-cinematic-music.wav" id="11_26jgb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68yrv"]
 size = Vector2(32, 32.109592)
@@ -135,3 +136,8 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 20
 text = "Score: YYYYY"
 horizontal_alignment = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1805803106]
+stream = ExtResource("11_26jgb")
+autoplay = true
+bus = &"Music"

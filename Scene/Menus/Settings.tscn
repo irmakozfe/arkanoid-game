@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cuh2ntyxsggbn" path="res://Art/checkbox/checkbox_unchecked.png" id="6_xgycf"]
 [ext_resource type="Texture2D" uid="uid://ubacw74cxkbd" path="res://Art/checkbox/checkbox_checked_disabled.png" id="7_i477j"]
 [ext_resource type="Texture2D" uid="uid://dmg28jy6772rg" path="res://Art/checkbox/checkbox_unchecked_disabled.png" id="8_47sve"]
+[ext_resource type="Script" uid="uid://i0phwl6cp5nb" path="res://Code/UI/StateActivator.cs" id="9_47sve"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_68yrv"]
 bg_color = Color(0.41568628, 0.12156863, 0.1254902, 0.53333336)
@@ -15,7 +16,11 @@ bg_color = Color(0.41568628, 0.12156863, 0.1254902, 0.53333336)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ghe0m"]
 bg_color = Color(0.41568628, 0.12156863, 0.1254902, 0.53333336)
 
-[node name="Settings" type="Control" unique_id=917844898 node_paths=PackedStringArray("_closeButton", "_masterAudioControl", "_musicAudioControl", "_sfxAudioControl", "_resolutionControl")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_47sve"]
+bg_color = Color(0.41568628, 0.12156863, 0.1254902, 0.53333336)
+corner_detail = 6
+
+[node name="Settings" type="Control" unique_id=917844898 node_paths=PackedStringArray("_cancelButton", "_mainMenuButton", "_masterAudioControl", "_musicAudioControl", "_sfxAudioControl", "_resolutionControl")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -24,7 +29,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_snkf2")
-_closeButton = NodePath("TextureRect/MarginContainer/VBoxContainer/Buttons/Close")
+_cancelButton = NodePath("TextureRect/MarginContainer/VBoxContainer/Buttons/Cancel")
+_mainMenuButton = NodePath("TextureRect/MarginContainer/VBoxContainer/Buttons/BackToMenu")
 _masterAudioControl = NodePath("TextureRect/MarginContainer/VBoxContainer/AudioControls/MasterAudioControl")
 _musicAudioControl = NodePath("TextureRect/MarginContainer/VBoxContainer/AudioControls/MusicAudioControl")
 _sfxAudioControl = NodePath("TextureRect/MarginContainer/VBoxContainer/AudioControls/SFXAudioControl")
@@ -98,19 +104,31 @@ text = "Fullscreen"
 layout_mode = 2
 size_flags_vertical = 10
 
-[node name="Close" type="Button" parent="TextureRect/MarginContainer/VBoxContainer/Buttons" unique_id=1910984157]
+[node name="Cancel" type="Button" parent="TextureRect/MarginContainer/VBoxContainer/Buttons" unique_id=1910984157]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_68yrv")
-text = "Close"
+text = "Cancel
+"
 
-[node name="Apply" type="Button" parent="TextureRect/MarginContainer/VBoxContainer/Buttons" unique_id=1108333397]
+[node name="Save" type="Button" parent="TextureRect/MarginContainer/VBoxContainer/Buttons" unique_id=1108333397]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_ghe0m")
-text = "Apply"
+text = "Save
+"
+
+[node name="BackToMenu" type="Button" parent="TextureRect/MarginContainer/VBoxContainer/Buttons" unique_id=882303616]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_47sve")
+text = "Back to Menu"
+
+[node name="StateActivator" type="Node" parent="TextureRect/MarginContainer/VBoxContainer/Buttons/BackToMenu" unique_id=2118841678]
+script = ExtResource("9_47sve")
+_activeStates = Array[int]([6])
 
 [editable path="TextureRect/MarginContainer/VBoxContainer/AudioControls"]
 [editable path="TextureRect/MarginContainer/VBoxContainer/ResolutionControls"]

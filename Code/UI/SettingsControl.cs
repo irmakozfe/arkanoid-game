@@ -1,22 +1,23 @@
+using Garkanoid.State;
 using GArkanoid.Systems;
 using Godot;
-using System;
-using System.Reflection.PortableExecutable;
 
-namespace Garkanoid.UI{
-public partial class SettingsControl : Control
+namespace Garkanoid.UI
+{
+	public partial class SettingsControl : Control
 	{
-		//TODO: implement the save state by yourself!
-		[Export] private Button _closeButton = null;
+		// TODO: implement the save state by yourself!
+		[Export] private Button _cancelButton = null;
+		[Export] private Button _mainMenuButton = null;
 
 		#region Audio
-		
-		[Export] private AudioControl _masterAudioControl=null; 
+
+		[Export] private AudioControl _masterAudioControl = null;
 		[Export] private AudioControl _musicAudioControl = null;
 		[Export] private AudioControl _sfxAudioControl = null;
 
 		[Export] private string _masterBusName = null;
-		[Export] private string _musicBusName = null; 
+		[Export] private string _musicBusName = null;
 		[Export] private string _sfxBusName = null;
 		[Export] private string _masterDisplayName = null;
 		[Export] private string _musicDisplayName = null;
@@ -25,32 +26,41 @@ public partial class SettingsControl : Control
 		#endregion Audio
 
 		#region Resolution
+
 		[Export] private ResolutionControl _resolutionControl = null;
 		[Export] private string _resolutionDisplayName = "Resolution";
 		private static readonly Vector2I DesignResolution = new(640, 360);
+
 		#endregion Resolution
-		
+
 		public override void _EnterTree()
 		{
-			_closeButton.Pressed += OnClosePressed;
+			if (_cancelButton != null)
+			{
+				_cancelButton.Pressed += OnClosePressed;
+			}
 
+			if (_mainMenuButton != null)
+			{
+				_mainMenuButton.Pressed += OnMainMenuPressed;
+			}
 
-			if(_masterAudioControl != null)
+			if (_masterAudioControl != null)
 			{
 				_masterAudioControl.VolumeChanged += OnVolumeChanged;
-			}		
+			}
 
-			if(_musicAudioControl != null)
+			if (_musicAudioControl != null)
 			{
 				_musicAudioControl.VolumeChanged += OnVolumeChanged;
 			}
 
-			if(_sfxAudioControl != null)
+			if (_sfxAudioControl != null)
 			{
 				_sfxAudioControl.VolumeChanged += OnVolumeChanged;
 			}
 
-			if(_resolutionControl != null)
+			if (_resolutionControl != null)
 			{
 				_resolutionControl.ResolutionChanged += OnResolutionChanged;
 				_resolutionControl.FullscreenToggled += OnFullscreenToggled;
@@ -59,78 +69,73 @@ public partial class SettingsControl : Control
 
 		public override void _ExitTree()
 		{
-			_closeButton.Pressed -= OnClosePressed;
+			if (_cancelButton != null)
+			{
+				_cancelButton.Pressed -= OnClosePressed;
+			}
 
+			if (_mainMenuButton != null)
+			{
+				_mainMenuButton.Pressed -= OnMainMenuPressed;
+			}
 
-
-			if(_masterAudioControl != null)
+			if (_masterAudioControl != null)
 			{
 				_masterAudioControl.VolumeChanged -= OnVolumeChanged;
-			}		
+			}
 
-			if(_musicAudioControl != null)
+			if (_musicAudioControl != null)
 			{
 				_musicAudioControl.VolumeChanged -= OnVolumeChanged;
 			}
 
-			if(_sfxAudioControl != null)
+			if (_sfxAudioControl != null)
 			{
 				_sfxAudioControl.VolumeChanged -= OnVolumeChanged;
 			}
 
-			if(_resolutionControl != null)
+			if (_resolutionControl != null)
 			{
 				_resolutionControl.ResolutionChanged -= OnResolutionChanged;
 				_resolutionControl.FullscreenToggled -= OnFullscreenToggled;
 			}
 		}
-		
-
 
 		public override void _Ready()
 		{
-			if(_masterAudioControl != null)
+			// TODO: when settings data is implemented, read this from the data.
+			if (_masterAudioControl != null)
 			{
-				// TODO: when settings data is implemented, read this from the data.
 				SetupAudioControl(_masterAudioControl, _masterBusName, _masterDisplayName);
 			}
 
-			if(_musicAudioControl != null)
+			if (_musicAudioControl != null)
 			{
 				SetupAudioControl(_musicAudioControl, _musicBusName, _musicDisplayName);
 			}
 
-			if(_sfxAudioControl != null)
+			if (_sfxAudioControl != null)
 			{
 				SetupAudioControl(_sfxAudioControl, _sfxBusName, _sfxDisplayName);
 			}
 
-			if(_resolutionControl != null)
+			if (_resolutionControl != null)
 			{
 				Window window = GetWindow();
 				bool isFullscreen = window.Mode == Window.ModeEnum.Fullscreen;
 
-				
-				// Vector2I designSize = new(
-				// 	(int)ProjectSettings.GetSetting("display/window/size/viewport_width"),
-				// 	(int)ProjectSettings.GetSetting("display/window/size/viewport_height")
-				// );
-
-				// _resolutionControl.Setup(_resolutionDisplayName, designSize, DisplayServer.WindowGetSize());
-
 				_resolutionControl.Setup(_resolutionDisplayName, DesignResolution, window.Size, isFullscreen);
-
 			}
 		}
 
-		private void SetupAudioControl(AudioControl audioControl,  string busName, string displayName)
+		private void SetupAudioControl(AudioControl audioControl, string busName, string displayName)
 		{
 			int audioBusIndex = AudioServer.GetBusIndex(busName);
 
 			if (audioBusIndex >= 0)
 			{
-				float masterVolume = AudioServer.GetBusVolumeDb(audioBusIndex);
-				audioControl.Setup(busName, displayName, masterVolume);
+				float volume = AudioServer.GetBusVolumeDb(audioBusIndex);
+				audioControl.Setup(busName, displayName, volume);
 			}
 		}
 
@@ -138,15 +143,22 @@ public partial class SettingsControl : Control
 		{
 			if (!GameManager.Instance.ActivatePreviousState())
 			{
-				GD.PushError("Game can not be continiued");
+				GD.PushError("Game can not be continued");
 			}
-			
+		}
+
+		private void OnMainMenuPressed()
+		{
+			GetTree().Paused = false;
+
+			if (!GameManager.Instance.ChangeState(GameStateType.MainMenu))
+			{
+				GD.PushError("Could not return to Main Menu.");
+			}
 		}
 
 		private void OnVolumeChanged(string audioBus, float decibel)
 		{
-			// TODO: Add support for previewing audio and then saving or restoring it
-
 			int audioBusIndex = AudioServer.GetBusIndex(audioBus);
 
 			if (audioBusIndex < 0)
@@ -155,7 +167,6 @@ public partial class SettingsControl : Control
 			}
 
 			AudioServer.SetBusVolumeDb(audioBusIndex, decibel);
-
 		}
 
 		private void OnResolutionChanged(Vector2I resolution)
@@ -180,6 +191,5 @@ public partial class SettingsControl : Control
 				OnResolutionChanged(_resolutionControl.SelectedResolution);
 			}
 		}
-
 	}
 }

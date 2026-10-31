@@ -35,15 +35,20 @@ public partial class AudioControl : HBoxContainer
 			//displayName can be translated to another native language thats why they are seperated
 			_busName = busName;
 			_nameLabel.Text = displayName;
-			setVolume(decibelVolume);
+			SetVolume(decibelVolume);
+
+			if (_volumeSlider != null)
+			{
+				_volumeSlider.ValueChanged += OnVolumeChanged;
+			}
 		}
 
-	public void setVolume(float decibelVolume)
+	public void SetVolume(float decibelVolume)
 		{
 			float linearVolume = Mathf.DbToLinear(decibelVolume);
 
 			_volumeSlider.Value = linearVolume;
-			_volumeLabel.Text = (linearVolume * 100).ToString();
+			_volumeLabel.Text = ((int) (linearVolume * 100)).ToString();
 			
 		}
 

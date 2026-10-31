@@ -30,6 +30,8 @@ text = "Audio Bus"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
 
 [node name="Label" type="Label" parent="MasterAudioControl" unique_id=1665583639]
 layout_mode = 2
@@ -50,6 +52,8 @@ text = "Music"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
 
 [node name="Label" type="Label" parent="MusicAudioControl" unique_id=740531928]
 layout_mode = 2
@@ -70,6 +74,8 @@ text = "SFX"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
 
 [node name="Label" type="Label" parent="SFXAudioControl" unique_id=128763982]
 layout_mode = 2

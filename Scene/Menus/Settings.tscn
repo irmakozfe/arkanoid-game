@@ -10,7 +10,7 @@ bg_color = Color(0.41568628, 0.12156863, 0.1254902, 0.53333336)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ghe0m"]
 bg_color = Color(0.41568628, 0.12156863, 0.1254902, 0.53333336)
 
-[node name="Settings" type="Control" unique_id=917844898 node_paths=PackedStringArray("_closeButton")]
+[node name="Settings" type="Control" unique_id=917844898 node_paths=PackedStringArray("_closeButton", "_masterAudioControl", "_musicAudioControl", "_sfxAudioControl")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -20,9 +20,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_snkf2")
 _closeButton = NodePath("TextureRect/MarginContainer/VBoxContainer/Buttons/Close")
+_masterAudioControl = NodePath("TextureRect/MarginContainer/VBoxContainer/AudioControls/MasterAudioControl")
+_musicAudioControl = NodePath("TextureRect/MarginContainer/VBoxContainer/AudioControls/MusicAudioControl")
+_sfxAudioControl = NodePath("TextureRect/MarginContainer/VBoxContainer/AudioControls/SFXAudioControl")
 _masterBusName = "Master"
 _musicBusName = "Music"
 _sfxBusName = "SFX"
+_masterDisplayName = "Audio Bus"
+_musicDisplayName = "Music"
+_sfxDisplayName = "SFX"
 
 [node name="TextureRect" type="NinePatchRect" parent="." unique_id=1682547302]
 layout_mode = 1
@@ -81,3 +87,5 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_ghe0m")
 text = "Apply"
+
+[editable path="TextureRect/MarginContainer/VBoxContainer/AudioControls"]

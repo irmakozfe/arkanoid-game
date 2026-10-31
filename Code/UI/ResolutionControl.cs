@@ -9,16 +9,37 @@ namespace Garkanoid.UI
 		[Signal]
 		public delegate void ResolutionChangedEventHandler(Vector2I resolution);
 
+		[Signal] public delegate void FullscreenToggledEventHandler(bool fullscreen);
+
 		[Export] private Label _nameLabel = null;
 		[Export] private OptionButton _resolutionOption = null;
+		[Export] private CheckBox _fullscreenCheckbox = null;
 
 		private readonly List<Vector2I> _resolutions = new();
+
+		public  Vector2I SelectedResolution
+		{
+			get
+			{
+				if (_resolutionOption == null || _resolutionOption.Selected < 0)
+				{
+					return Vector2I.Zero;
+				}
+				return _resolutions[_resolutionOption.Selected];
+			}
+		}
+
 
 		public override void _EnterTree()
 		{
 			if (_resolutionOption != null)
 			{
 				_resolutionOption.ItemSelected += OnItemSelected;
+			}
+
+			if (_fullscreenCheckbox != null)
+			{
+				_fullscreenCheckbox.Toggled += OnFullscreenToggled;
 			}
 		}
 
@@ -28,13 +49,34 @@ namespace Garkanoid.UI
 			{
 				_resolutionOption.ItemSelected -= OnItemSelected;
 			}
+
+			if (_fullscreenCheckbox != null)
+			{
+				_fullscreenCheckbox.Toggled -= OnFullscreenToggled;
+			}
 		}
 
-		public void Setup(string displayName, Vector2I designSize, Vector2I currentSize)
+
+
+		public void Setup(string displayName, Vector2I designSize, Vector2I currentSize, bool isFullscreen)
 		{
 			if (_nameLabel != null)
 			{
 				_nameLabel.Text = displayName;
+			}
+
+			FillResolutions(designSize, currentSize);
+			SetFullscreen(isFullscreen);
+
+
+	
+		}
+
+		private void FillResolutions(Vector2I designSize, Vector2I currentSize)
+		{
+			if(_resolutionOption == null)
+			{
+				return;
 			}
 
 			_resolutions.Clear();
@@ -57,13 +99,33 @@ namespace Garkanoid.UI
 				? currentIndex
 				: 0
 			);
-			
+		}
+
+		private void SetFullscreen(bool fullscreen)
+		{
+			_fullscreenCheckbox.SetPressedNoSignal(fullscreen);
+
+			if(_resolutionOption != null)
+			{
+				_resolutionOption.Disabled = fullscreen;
+			}
 		}
 
 		private void OnItemSelected(long index)
 		{
 			EmitSignal(SignalName.ResolutionChanged, _resolutions[(int) index]);
 		}
-	
+
+		private void OnFullscreenToggled(bool toggled)
+		{
+			if (_resolutionOption != null)
+			{
+				_resolutionOption.Disabled = toggled;
+			}
+
+			EmitSignal(SignalName.FullscreenToggled, toggled);
+			
+		}
+
 	}
 }

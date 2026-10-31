@@ -15,7 +15,7 @@ bg_color = Color(0.41568628, 0.12156863, 0.1254902, 0.53333336)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ghe0m"]
 bg_color = Color(0.41568628, 0.12156863, 0.1254902, 0.53333336)
 
-[node name="Settings" type="Control" unique_id=917844898 node_paths=PackedStringArray("_closeButton", "_resolutionControl", "_masterAudioControl", "_musicAudioControl", "_sfxAudioControl")]
+[node name="Settings" type="Control" unique_id=917844898 node_paths=PackedStringArray("_closeButton", "_masterAudioControl", "_musicAudioControl", "_sfxAudioControl", "_resolutionControl")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -25,7 +25,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_snkf2")
 _closeButton = NodePath("TextureRect/MarginContainer/VBoxContainer/Buttons/Close")
-_resolutionControl = NodePath("TextureRect/MarginContainer/VBoxContainer/ResolutionControls")
 _masterAudioControl = NodePath("TextureRect/MarginContainer/VBoxContainer/AudioControls/MasterAudioControl")
 _musicAudioControl = NodePath("TextureRect/MarginContainer/VBoxContainer/AudioControls/MusicAudioControl")
 _sfxAudioControl = NodePath("TextureRect/MarginContainer/VBoxContainer/AudioControls/SFXAudioControl")
@@ -35,6 +34,7 @@ _sfxBusName = "SFX"
 _masterDisplayName = "Audio Bus"
 _musicDisplayName = "Music"
 _sfxDisplayName = "SFX"
+_resolutionControl = NodePath("TextureRect/MarginContainer/VBoxContainer/ResolutionControls")
 
 [node name="TextureRect" type="NinePatchRect" parent="." unique_id=1682547302]
 layout_mode = 1
@@ -76,10 +76,11 @@ horizontal_alignment = 1
 [node name="AudioControls" parent="TextureRect/MarginContainer/VBoxContainer" unique_id=1519130344 instance=ExtResource("3_500vd")]
 layout_mode = 2
 
-[node name="ResolutionControls" parent="TextureRect/MarginContainer/VBoxContainer" unique_id=1527903552 node_paths=PackedStringArray("_nameLabel", "_resolutionOption") instance=ExtResource("4_kypa2")]
+[node name="ResolutionControls" parent="TextureRect/MarginContainer/VBoxContainer" unique_id=1527903552 node_paths=PackedStringArray("_nameLabel", "_resolutionOption", "_fullscreenCheckbox") instance=ExtResource("4_kypa2")]
 layout_mode = 2
 _nameLabel = NodePath("Resolution")
 _resolutionOption = NodePath("OptionButton")
+_fullscreenCheckbox = NodePath("CheckBox")
 
 [node name="OptionButton" parent="TextureRect/MarginContainer/VBoxContainer/ResolutionControls" index="2" unique_id=1406049084]
 size_flags_vertical = 3

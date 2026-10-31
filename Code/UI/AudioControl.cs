@@ -34,13 +34,13 @@ public partial class AudioControl : HBoxContainer
 		{
 			//displayName can be translated to another native language thats why they are seperated
 			_busName = busName;
-			_nameLabel.Text = displayName;
-			SetVolume(decibelVolume);
 
-			if (_volumeSlider != null)
+		if (_nameLabel != null)
 			{
-				_volumeSlider.ValueChanged += OnVolumeChanged;
+				_nameLabel.Text = displayName;
 			}
+			
+			SetVolume(decibelVolume);
 		}
 
 	public void SetVolume(float decibelVolume)

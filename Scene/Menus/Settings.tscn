@@ -2,7 +2,12 @@
 
 [ext_resource type="Script" uid="uid://bhehvhqicte8r" path="res://Code/UI/SettingsControl.cs" id="1_snkf2"]
 [ext_resource type="Texture2D" uid="uid://d2pfoeswasc73" path="res://Art/BG/settings_frame.png" id="2_500vd"]
-[ext_resource type="PackedScene" uid="uid://blej4fy8k1lp2" path="res://Scene/Menus/Level1Content.tscn" id="3_500vd"]
+[ext_resource type="PackedScene" uid="uid://blej4fy8k1lp2" path="res://Scene/Menus/AudioControl.tscn" id="3_500vd"]
+[ext_resource type="PackedScene" uid="uid://dae48kumepsrp" path="res://Scene/Menus/ResolutionControl.tscn" id="4_kypa2"]
+[ext_resource type="Texture2D" uid="uid://b8g2ls08o4yda" path="res://Art/checkbox/checkbox_checked.png" id="5_tm1a1"]
+[ext_resource type="Texture2D" uid="uid://cuh2ntyxsggbn" path="res://Art/checkbox/checkbox_unchecked.png" id="6_xgycf"]
+[ext_resource type="Texture2D" uid="uid://ubacw74cxkbd" path="res://Art/checkbox/checkbox_checked_disabled.png" id="7_i477j"]
+[ext_resource type="Texture2D" uid="uid://dmg28jy6772rg" path="res://Art/checkbox/checkbox_unchecked_disabled.png" id="8_47sve"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_68yrv"]
 bg_color = Color(0.41568628, 0.12156863, 0.1254902, 0.53333336)
@@ -10,7 +15,7 @@ bg_color = Color(0.41568628, 0.12156863, 0.1254902, 0.53333336)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ghe0m"]
 bg_color = Color(0.41568628, 0.12156863, 0.1254902, 0.53333336)
 
-[node name="Settings" type="Control" unique_id=917844898 node_paths=PackedStringArray("_closeButton", "_masterAudioControl", "_musicAudioControl", "_sfxAudioControl")]
+[node name="Settings" type="Control" unique_id=917844898 node_paths=PackedStringArray("_closeButton", "_resolutionControl", "_masterAudioControl", "_musicAudioControl", "_sfxAudioControl")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -20,6 +25,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_snkf2")
 _closeButton = NodePath("TextureRect/MarginContainer/VBoxContainer/Buttons/Close")
+_resolutionControl = NodePath("TextureRect/MarginContainer/VBoxContainer/ResolutionControls")
 _masterAudioControl = NodePath("TextureRect/MarginContainer/VBoxContainer/AudioControls/MasterAudioControl")
 _musicAudioControl = NodePath("TextureRect/MarginContainer/VBoxContainer/AudioControls/MusicAudioControl")
 _sfxAudioControl = NodePath("TextureRect/MarginContainer/VBoxContainer/AudioControls/SFXAudioControl")
@@ -70,6 +76,23 @@ horizontal_alignment = 1
 [node name="AudioControls" parent="TextureRect/MarginContainer/VBoxContainer" unique_id=1519130344 instance=ExtResource("3_500vd")]
 layout_mode = 2
 
+[node name="ResolutionControls" parent="TextureRect/MarginContainer/VBoxContainer" unique_id=1527903552 node_paths=PackedStringArray("_nameLabel", "_resolutionOption") instance=ExtResource("4_kypa2")]
+layout_mode = 2
+_nameLabel = NodePath("Resolution")
+_resolutionOption = NodePath("OptionButton")
+
+[node name="OptionButton" parent="TextureRect/MarginContainer/VBoxContainer/ResolutionControls" index="2" unique_id=1406049084]
+size_flags_vertical = 3
+
+[node name="CheckBox" type="CheckBox" parent="TextureRect/MarginContainer/VBoxContainer/ResolutionControls" unique_id=945876100]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_icons/checked = ExtResource("5_tm1a1")
+theme_override_icons/unchecked = ExtResource("6_xgycf")
+theme_override_icons/checked_disabled = ExtResource("7_i477j")
+theme_override_icons/unchecked_disabled = ExtResource("8_47sve")
+text = "Fullscreen"
+
 [node name="Buttons" type="HBoxContainer" parent="TextureRect/MarginContainer/VBoxContainer" unique_id=2054154805]
 layout_mode = 2
 size_flags_vertical = 10
@@ -89,3 +112,4 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_ghe0m")
 text = "Apply"
 
 [editable path="TextureRect/MarginContainer/VBoxContainer/AudioControls"]
+[editable path="TextureRect/MarginContainer/VBoxContainer/ResolutionControls"]

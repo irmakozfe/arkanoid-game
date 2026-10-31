@@ -10,6 +10,12 @@ public partial class SettingsControl : Control
 		[Export] private Button _closeButton = null;
 
 		#region Audio
+
+		#region Resolution
+		[Export] private ResolutionControl _resolutionControl = null;
+		[Export] private string _resolutionDisplayName = "Resolution";
+
+		#endregion Resolution
 		
 		[Export] private AudioControl _masterAudioControl=null; 
 		[Export] private AudioControl _musicAudioControl = null;
@@ -43,6 +49,11 @@ public partial class SettingsControl : Control
 			{
 				_sfxAudioControl.VolumeChanged += OnVolumeChanged;
 			}
+
+			if(_resolutionControl != null)
+			{
+				_resolutionControl.ResolutionChanged += OnResolutionChanged;
+			}
 		}
 
 		public override void _ExitTree()
@@ -65,7 +76,13 @@ public partial class SettingsControl : Control
 			{
 				_sfxAudioControl.VolumeChanged -= OnVolumeChanged;
 			}
+
+			if(_resolutionControl != null)
+			{
+				_resolutionControl.ResolutionChanged -= OnResolutionChanged;
+			}
 		}
+		
 
 
 		public override void _Ready()
@@ -84,6 +101,16 @@ public partial class SettingsControl : Control
 			if(_sfxAudioControl != null)
 			{
 				SetupAudioControl(_sfxAudioControl, _sfxBusName, _sfxDisplayName);
+			}
+
+			if(_resolutionControl != null)
+			{
+				Vector2I designSize = new(
+					(int)ProjectSettings.GetSetting("display/window/size/viewport_width"),
+					(int)ProjectSettings.GetSetting("display/window/size/viewport_height")
+				);
+
+				_resolutionControl.Setup(_resolutionDisplayName, designSize, DisplayServer.WindowGetSize());
 			}
 		}
 
@@ -120,6 +147,16 @@ public partial class SettingsControl : Control
 
 			AudioServer.SetBusVolumeDb(audioBusIndex, decibel);
 
+		}
+
+		private void OnResolutionChanged(Vector2I resolution)
+		{
+			DisplayServer.WindowSetSize(resolution);
+
+			int screen = DisplayServer.WindowGetCurrentScreen();
+			Vector2I screenPosition = DisplayServer.ScreenGetPosition(screen);
+			Vector2I screenSize = DisplayServer.ScreenGetSize(screen);
+			DisplayServer.WindowSetPosition(screenPosition + (screenSize - resolution) / 2);
 		}
 
 	}

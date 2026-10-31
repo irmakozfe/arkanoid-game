@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dae48kumepsrp"]
+
+[ext_resource type="Script" uid="uid://d3s0ffgkkg251" path="res://Code/UI/ResolutionControl.cs" id="1_yu2my"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bvjf5"]
+bg_color = Color(0.41568628, 0.12156863, 0.1254902, 0.53333336)
+
+[node name="ResolutionControls" type="VBoxContainer" unique_id=1527903552]
+script = ExtResource("1_yu2my")
+
+[node name="Video" type="Label" parent="." unique_id=708869369]
+layout_mode = 2
+text = "VIDEO"
+horizontal_alignment = 1
+
+[node name="Resolution" type="Label" parent="." unique_id=1594826060]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "RESOLUTION"
+horizontal_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="." unique_id=1406049084]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_bvjf5")

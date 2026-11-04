@@ -17,6 +17,18 @@ namespace GArkanoid.Entities
         public const string axisNameRight = "Right";
 
 
+        public const string AudioSection = "Audio";
+        public const string VideoSection = "Video";
+        public const string MusicSection = "Music";
+        public const string MasterSection = "Master";
+        public const string SFXSection = "SFX";
+        public const string MusicVolumeKey = MusicSection + "Volume";
+        public const string MasterVolumeKey = MasterSection + "Volume";
+        public const string SFXVolumeKey = SFXSection + "Volume";
+        public const string ResolutionKey = "Resolution";
+        public const string FullscreenKey = "Fullscreen";
+
+
         
         
     }

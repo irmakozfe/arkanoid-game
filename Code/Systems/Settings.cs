@@ -1,3 +1,4 @@
+using GArkanoid.Entities;
 using Godot;
 
 namespace Garkanoid.Systems
@@ -9,9 +10,9 @@ namespace Garkanoid.Systems
 
         public static void ApplySettings(SettingsData settingsData)
         {
-            AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), settingsData.MasterVolume);
-            AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Music"), settingsData.MusicVolume);
-            AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("SFX"), settingsData.SFXVolume);
+            AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex(Config.MasterSection), settingsData.MasterVolume);
+            AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex(Config.MusicSection), settingsData.MusicVolume);
+            AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex(Config.SFXSection), settingsData.SFXVolume);
 
             DisplayServer.WindowSetSize(settingsData.Resolution);
             DisplayServer.WindowMode windowMode = settingsData.Fullscreen ? DisplayServer.WindowMode.Fullscreen : DisplayServer.WindowMode.Windowed;
@@ -23,12 +24,12 @@ namespace Garkanoid.Systems
         public void Save()
         {
             ConfigFile settingsFile = new ConfigFile();
-            settingsFile.SetValue("Audio", "MasterVolume", _settingsData.MasterVolume);
-            settingsFile.SetValue("Audio", "MusicVolume", _settingsData.MusicVolume);
-            settingsFile.SetValue("Audio", "SFXVolume", _settingsData.SFXVolume);
+            settingsFile.SetValue(Config.AudioSection, Config.MasterVolumeKey, _settingsData.MasterVolume);
+            settingsFile.SetValue(Config.AudioSection, Config.MusicVolumeKey, _settingsData.MusicVolume);
+            settingsFile.SetValue(Config.AudioSection, Config.SFXVolumeKey, _settingsData.SFXVolume);
 
-            settingsFile.SetValue("Video", "Resolution", _settingsData.Resolution);
-            settingsFile.SetValue("Video", "Fullscreen", _settingsData.Fullscreen);
+            settingsFile.SetValue(Config.VideoSection, Config.ResolutionKey, _settingsData.Resolution);
+            settingsFile.SetValue(Config.VideoSection, Config.FullscreenKey, _settingsData.Fullscreen);
 
             settingsFile.Save(SettingsFilePath);
         }
@@ -52,12 +53,12 @@ namespace Garkanoid.Systems
             // initialization list method
             return new SettingsData()
             {
-              MasterVolume = (float) savedSettings.GetValue("Audio", "MasterVolume", defaultData.MasterVolume),
-              MusicVolume = (float) savedSettings.GetValue("Audio", "MusicVolume", defaultData.MusicVolume),
-              SFXVolume = (float) savedSettings.GetValue("Audio", "SFXVolume", defaultData.SFXVolume), 
+              MasterVolume = (float) savedSettings.GetValue(Config.AudioSection, Config.MasterVolumeKey, defaultData.MasterVolume),
+              MusicVolume = (float) savedSettings.GetValue(Config.AudioSection, Config.MusicVolumeKey, defaultData.MusicVolume),
+              SFXVolume = (float) savedSettings.GetValue(Config.AudioSection, Config.SFXVolumeKey, defaultData.SFXVolume), 
 
-              Resolution = (Vector2I) savedSettings.GetValue("Video", "Resolution", defaultData.Resolution),
-              Fullscreen = (bool) savedSettings.GetValue("Video", "Fullscreen", defaultData.Fullscreen),
+              Resolution = (Vector2I) savedSettings.GetValue(Config.VideoSection, Config.ResolutionKey, defaultData.Resolution),
+              Fullscreen = (bool) savedSettings.GetValue(Config.VideoSection, Config.ResolutionKey, defaultData.Fullscreen),
 
             };
         }

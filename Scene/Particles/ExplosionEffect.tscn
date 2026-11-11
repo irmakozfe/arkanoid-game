@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://cih0iy576t7x6"]
+
+[ext_resource type="Texture2D" uid="uid://bwo7ua56pviii" path="res://Art/Effects/pixel-explosion.png" id="1_f3k4j"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_68yrv"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 3
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_gcpnc"]
+colors = PackedColorArray(0.9411765, 0.22352941, 0, 1, 1, 1, 0.09019608, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rs8b6"]
+gradient = SubResource("Gradient_gcpnc")
+
+[sub_resource type="Curve" id="Curve_23dsa"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xgk26"]
+curve = SubResource("Curve_23dsa")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ghe0m"]
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 10.0
+angle_min = -179.99998
+angle_max = 180.00002
+gravity = Vector3(0, 0, 0)
+scale_min = 0.25
+scale_max = 0.39999998
+scale_curve = SubResource("CurveTexture_xgk26")
+color_ramp = SubResource("GradientTexture1D_rs8b6")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="GPUParticles2D" type="GPUParticles2D" unique_id=389960619]
+material = SubResource("CanvasItemMaterial_68yrv")
+emitting = false
+texture = ExtResource("1_f3k4j")
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ghe0m")

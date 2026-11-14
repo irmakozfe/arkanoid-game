@@ -1,27 +1,31 @@
 [gd_scene format=3 uid="uid://cih0iy576t7x6"]
 
-[ext_resource type="Texture2D" uid="uid://bwo7ua56pviii" path="res://Art/Effects/pixel-explosion.png" id="1_f3k4j"]
+[ext_resource type="AudioStream" uid="uid://bc2g7j0k5dh7g" path="res://Audio/158943__carlmartin__jembay-hit-2-rim.wav" id="1_xf2jf"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_68yrv"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_w2uxw"]
 particles_animation = true
 particles_anim_h_frames = 2
 particles_anim_v_frames = 3
 particles_anim_loop = false
 
-[sub_resource type="Gradient" id="Gradient_gcpnc"]
-colors = PackedColorArray(0.9411765, 0.22352941, 0, 1, 1, 1, 0.09019608, 1)
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xf2jf"]
+load_path = "res://.godot/imported/pixel-explosion.png-a0d881eadddc80e0cbfafe4d755d28f4.ctex"
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_rs8b6"]
-gradient = SubResource("Gradient_gcpnc")
+[sub_resource type="Gradient" id="Gradient_w2uxw"]
+offsets = PackedFloat32Array(0, 0.008064516, 0.5390625, 1)
+colors = PackedColorArray(0.1374735, 0.59994775, 0.62334764, 1, 0.9120887, 0.6599619, 0.2023176, 1, 0.98929256, 0.7654819, 0.8815322, 1, 1, 1, 0.09019608, 1)
 
-[sub_resource type="Curve" id="Curve_23dsa"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xf2jf"]
+gradient = SubResource("Gradient_w2uxw")
+
+[sub_resource type="Curve" id="Curve_c0wcp"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_xgk26"]
-curve = SubResource("Curve_23dsa")
+[sub_resource type="CurveTexture" id="CurveTexture_jmgnw"]
+curve = SubResource("Curve_c0wcp")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ghe0m"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6yw28"]
 particle_flag_disable_z = true
 emission_shape = 2
 emission_sphere_radius = 10.0
@@ -30,16 +34,20 @@ angle_max = 180.00002
 gravity = Vector3(0, 0, 0)
 scale_min = 0.25
 scale_max = 0.39999998
-scale_curve = SubResource("CurveTexture_xgk26")
-color_ramp = SubResource("GradientTexture1D_rs8b6")
+scale_curve = SubResource("CurveTexture_jmgnw")
+color_ramp = SubResource("GradientTexture1D_xf2jf")
 anim_speed_min = 1.0
 anim_speed_max = 1.0
 
 [node name="GPUParticles2D" type="GPUParticles2D" unique_id=389960619]
-material = SubResource("CanvasItemMaterial_68yrv")
+material = SubResource("CanvasItemMaterial_w2uxw")
 emitting = false
-texture = ExtResource("1_f3k4j")
+texture = SubResource("CompressedTexture2D_xf2jf")
 lifetime = 0.25
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_ghe0m")
+process_material = SubResource("ParticleProcessMaterial_6yw28")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1742678835]
+stream = ExtResource("1_xf2jf")
+bus = &"SFX"

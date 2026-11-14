@@ -1,0 +1,24 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://c1a0vkbklgc6a"]
+
+[ext_resource type="Texture2D" uid="uid://bjivdorcg2wbw" path="res://Scene/Particles/Data/HitGradient.tres" id="1_l1aw4"]
+
+[sub_resource type="Curve" id="Curve_23dsa"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xgk26"]
+curve = SubResource("Curve_23dsa")
+
+[resource]
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 10.0
+angle_min = -179.99998
+angle_max = 180.00002
+gravity = Vector3(0, 0, 0)
+scale_min = 0.25
+scale_max = 0.39999998
+scale_curve = SubResource("CurveTexture_xgk26")
+color_ramp = ExtResource("1_l1aw4")
+anim_speed_min = 1.0
+anim_speed_max = 1.0

@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://dmgpdpdl7qu37" path="res://Scene/Levels/Contents/Level1Content.tscn" id="10_4cl0q"]
 [ext_resource type="Script" uid="uid://bcm0qlkutil10" path="res://Code/UI/LevelUI.cs" id="10_26jgb"]
 [ext_resource type="AudioStream" uid="uid://cp445kkpfw2ee" path="res://Audio/579825__szegvari__electronic-cinematic-music.wav" id="11_26jgb"]
+[ext_resource type="Script" uid="uid://no2e8u1qspon" path="res://Code/Level/EffectPlayer.cs" id="12_ym3b0"]
+[ext_resource type="Resource" uid="uid://dyvmgbkj1m0xb" path="res://Data/EffectMap.tres" id="13_qhil3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68yrv"]
 size = Vector2(32, 32.109592)
@@ -21,9 +23,11 @@ size = Vector2(31, 32.109596)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvjf5"]
 size = Vector2(1088, 32)
 
-[node name="Level" type="Node2D" unique_id=662855955]
+[node name="Level" type="Node2D" unique_id=662855955 node_paths=PackedStringArray("_paddle", "_ball")]
 script = ExtResource("1_88x46")
 _levelContents = Array[PackedScene]([ExtResource("10_4cl0q")])
+_paddle = NodePath("Paddle")
+_ball = NodePath("Ball")
 
 [node name="Ball" parent="." unique_id=2103484260 node_paths=PackedStringArray("_paddle") instance=ExtResource("1_bcosh")]
 position = Vector2(527, 453)
@@ -141,3 +145,8 @@ horizontal_alignment = 2
 stream = ExtResource("11_26jgb")
 autoplay = true
 bus = &"Music"
+
+[node name="EffectPlayer" type="Node2D" parent="." unique_id=511411944]
+script = ExtResource("12_ym3b0")
+_effectMap = ExtResource("13_qhil3")
+metadata/_custom_type_script = "uid://no2e8u1qspon"

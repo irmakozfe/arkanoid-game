@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://xxmtmha1rn5h"]
+
+[ext_resource type="PackedScene" uid="uid://cih0iy576t7x6" path="res://Scene/Particles/ExplosionEffect.tscn" id="1_eemup"]
+[ext_resource type="Material" uid="uid://c0ajshciitu5k" path="res://Scene/Particles/Data/DeathMaterial.tres" id="2_bnfnt"]
+[ext_resource type="AudioStream" uid="uid://do2pif0k0byhl" path="res://Audio/457756__tissman__fail8.wav" id="3_npuau"]
+
+[node name="GPUParticles2D" unique_id=389960619 instance=ExtResource("1_eemup")]
+process_material = ExtResource("2_bnfnt")
+
+[node name="AudioStreamPlayer2D" parent="." index="0" unique_id=1742678835]
+stream = ExtResource("3_npuau")

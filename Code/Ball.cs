@@ -1,3 +1,4 @@
+using Garkanoid.Effects;
 using Garkanoid.Entities;
 using Godot;
 using System;
@@ -57,22 +58,29 @@ namespace GArkanoid.Entities
 		private void Move(float delta)
 		{
 			KinematicCollision2D collision = MoveAndCollide(_direction * _speed * delta);
-
+			EffectType effect = EffectType.None;
 			if(collision != null)
 			{
 				GodotObject collider = collision.GetCollider();
 				if (collider != null)
 				{
+					 effect = EffectType.Bounce;
 					if (collider is Block block)
 					{
+						effect = EffectType.Hit;
 						block.Hit();
 					}
 
 					if (collider is LifeLossArea lifeLossArea)
 					{
+						Level.Current.EffectPlayer.PlayEffect(EffectType.Death, GlobalPosition);
 						lifeLossArea.OnBallHit(this);
 						return;
 					}
+				}
+
+				if (effect != EffectType.None){
+				Level.Current.EffectPlayer.PlayEffect(effect, GlobalPosition);
 				}
 				_direction = _direction.Bounce(collision.GetNormal()).Normalized();
 				Velocity = _direction * _speed;

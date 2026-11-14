@@ -1,5 +1,3 @@
-using Godot;
-
 namespace Garkanoid.Effects
 {
     // used for spawning the correct effect
@@ -11,8 +9,5 @@ namespace Garkanoid.Effects
         Death // destruction of the ball
         
     }
-    public partial class EffectLayer: Node2D
-    {
-        
-    }    
+
 }

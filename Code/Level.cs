@@ -1,3 +1,4 @@
+using Garkanoid.Effects;
 using GArkanoid.Common;
 using GArkanoid.Systems;
 using Godot;
@@ -15,7 +16,6 @@ public partial class Level : Node2D
 	[Export] private int _levelId = 1;
 	#endregion Level Content
 
-	#region References
 	[Export] private Paddle _paddle = null;
 	[Export] private Ball _ball = null;
 	[Export] private int _wallWidth = 0;
@@ -23,15 +23,19 @@ public partial class Level : Node2D
 	public Paddle Paddle { get { return _paddle; } }
 	public Ball Ball { get { return _ball; } }
 	public int WallWidth { get { return _wallWidth; } }
-		#endregion References
-
-		public override void _Input(InputEvent @event)
+	public EffectPlayer EffectPlayer
 		{
-			if (@event.IsActionPressed(Config.PauseActionName))
-			{
-				GameManager.Instance.ChangeState(GameStateType.Pause);
-			}
+			get;
+			private set;
 		}
+
+	public override void _Input(InputEvent @event)
+	{
+		if (@event.IsActionPressed(Config.PauseActionName))
+		{
+			GameManager.Instance.ChangeState(GameStateType.Pause);
+		}
+	}
 
 	public override void _Ready()
 	// Called when the node enters the scene tree for the first time.
@@ -48,6 +52,12 @@ public partial class Level : Node2D
 		if (_ball == null)
 			{
 				_ball = this.GetNode<Ball>();
+			}
+
+		EffectPlayer = this.GetNode<EffectPlayer>();
+		if(EffectPlayer == null)
+			{
+				GD.PushError("No effect player found from the scene!");
 			}
 
 		IList<Ball> balls = this.GetNodes<Ball>(recursive:true);

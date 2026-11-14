@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="EffectMap" format=3 uid="uid://dyvmgbkj1m0xb"]
+
+[ext_resource type="Script" uid="uid://b87ktwrjxlo0u" path="res://Code/Level/EffectMap.cs" id="1_3jgy6"]
+[ext_resource type="PackedScene" uid="uid://ejo83duihktm" path="res://Scene/Particles/BounceEffect.tscn" id="1_huswr"]
+[ext_resource type="Script" uid="uid://dw81aaxnu01wa" path="res://Code/Level/EffectSceneEntry.cs" id="2_lw5wv"]
+[ext_resource type="PackedScene" uid="uid://xxmtmha1rn5h" path="res://Scene/Particles/DeathEffect.tscn" id="3_53chk"]
+[ext_resource type="PackedScene" uid="uid://cih0iy576t7x6" path="res://Scene/Particles/ExplosionEffect.tscn" id="4_rqygw"]
+
+[sub_resource type="Resource" id="Resource_synon"]
+script = ExtResource("2_lw5wv")
+EffectType = 1
+EffectScene = ExtResource("1_huswr")
+metadata/_custom_type_script = "uid://dw81aaxnu01wa"
+
+[sub_resource type="Resource" id="Resource_3hx46"]
+script = ExtResource("2_lw5wv")
+EffectType = 3
+EffectScene = ExtResource("3_53chk")
+metadata/_custom_type_script = "uid://dw81aaxnu01wa"
+
+[sub_resource type="Resource" id="Resource_87jhl"]
+script = ExtResource("2_lw5wv")
+EffectType = 2
+EffectScene = ExtResource("4_rqygw")
+metadata/_custom_type_script = "uid://dw81aaxnu01wa"
+
+[resource]
+script = ExtResource("1_3jgy6")
+_entries = Array[Object]([SubResource("Resource_synon"), SubResource("Resource_3hx46"), SubResource("Resource_87jhl")])
+metadata/_custom_type_script = "uid://b87ktwrjxlo0u"

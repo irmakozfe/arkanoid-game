@@ -48,10 +48,7 @@ namespace Garkanoid.Effects
                 audio.Play();
                 audio.Finished += () =>
                 {
-                    effectsPlaying --;
-                    if(effectsPlaying <= 0){
-                    effect.QueueFree();
-                    }
+                    EffectFinished();
                     
                 };
             }
@@ -59,13 +56,24 @@ namespace Garkanoid.Effects
             effect.Finished += () =>
             {
                 // Gets called when the signal is emmitted
+                EffectFinished();
+            };
+
+            // intentionally declared here! Dont move this
+            void EffectFinished()
+            {
+                effectsPlaying--;
                 if(effectsPlaying <= 0){
                 effect.QueueFree();
                 }
-            };
+
+                
+            }
 
             
         }
+
+        
     }
 
 }

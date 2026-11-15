@@ -28,6 +28,8 @@ namespace GArkanoid.Entities
         public const string ResolutionKey = "Resolution";
         public const string FullscreenKey = "Fullscreen";
 
+        public const string BlockGroup = "Blocks";
+
 
         
         

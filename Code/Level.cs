@@ -82,6 +82,19 @@ public partial class Level : Node2D
 			Node content = _levelContents[index].Instantiate();
 			AddChild(content);
 
+			foreach (Block block in content.GetNodes<Block>(recursive: true))
+			{
+				block.BlockDestroyed += OnBlockDestroyed;
+			}
+
+		}
+
+		private void OnBlockDestroyed(Block block)
+		{
+			if (GetTree().GetNodesInGroup(Config.BlockGroup).Count == 0)
+			{
+				Callable.From(() => GameManager.Instance.ChangeState(GameStateType.Win)).CallDeferred();
+			}
 		}
 
 }

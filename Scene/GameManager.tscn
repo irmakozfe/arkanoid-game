@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://i0r3e51od1ap"]
+
+[ext_resource type="Script" uid="uid://cd11a3by61hts" path="res://Code/Systems/GameManager.cs" id="1_hhlhx"]
+[ext_resource type="AudioStream" uid="uid://drbrpxxq4476a" path="res://Audio/387440__frankum__electronic-music-loop-001-accurate-time.wav" id="2_udwf8"]
+[ext_resource type="AudioStream" uid="uid://cp445kkpfw2ee" path="res://Audio/579825__szegvari__electronic-cinematic-music.wav" id="3_dobux"]
+
+[node name="GameManager" type="Node" unique_id=1907739025]
+script = ExtResource("1_hhlhx")
+_menuMusic = ExtResource("2_udwf8")
+_gameMusic = ExtResource("3_dobux")
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=594774154]
+process_mode = 3
+bus = &"Music"

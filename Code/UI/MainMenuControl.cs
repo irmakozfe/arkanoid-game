@@ -42,7 +42,7 @@ public partial class MainMenuControl : Control
 
 		private void OnQuitPressed()
 		{
-			// TODO: which GameStateType is suitable for here?
+			GetTree().Quit();
 		}
 
 }

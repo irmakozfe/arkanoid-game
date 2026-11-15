@@ -4,7 +4,7 @@ using System;
 namespace Garkanoid.UI{
 public partial class AudioControl : HBoxContainer
 {
-	// audio labels are measured in decibel 
+	// audio labels are measured in decibel
 	[Signal]
 	 public delegate void VolumeChangedEventHandler(string audioBus, float decibel);
 
@@ -39,7 +39,7 @@ public partial class AudioControl : HBoxContainer
 			{
 				_nameLabel.Text = displayName;
 			}
-			
+
 			SetVolume(decibelVolume);
 		}
 
@@ -47,9 +47,9 @@ public partial class AudioControl : HBoxContainer
 		{
 			float linearVolume = Mathf.DbToLinear(decibelVolume);
 
-			_volumeSlider.Value = linearVolume;
+			_volumeSlider.SetValueNoSignal(linearVolume);    
 			_volumeLabel.Text = ((int) (linearVolume * 100)).ToString();
-			
+
 		}
 
 	public void UpdateVolume()
@@ -57,7 +57,7 @@ public partial class AudioControl : HBoxContainer
 			// Volume on a linear scale [0,1], on a decibel [-80, 0]
 			float linearVolume = (float) _volumeSlider.Value;
 
-			float decibelVolume=  Mathf.LinearToDb(linearVolume);
+			float decibelVolume=  Mathf.Max(Mathf.LinearToDb(linearVolume), -80f);   
 
 			_volumeLabel.Text = ((int) (linearVolume *100) ).ToString();
 
@@ -67,6 +67,6 @@ public partial class AudioControl : HBoxContainer
 	private void OnVolumeChanged(double value)
 		{
 			UpdateVolume();
-		}	
+		}
 }
 }

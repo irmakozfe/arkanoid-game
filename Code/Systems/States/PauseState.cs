@@ -2,7 +2,7 @@ using Garkanoid.State;
 using GArkanoid.Systems;
 using Godot;
 
-namespace Garkanoid.Pause
+namespace Garkanoid.State
 {
 
     public class PauseState : GameStateBase

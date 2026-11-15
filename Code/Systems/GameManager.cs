@@ -1,4 +1,3 @@
-using Garkanoid.Pause;
 using Garkanoid.State;
 using GArkanoid.Entities;
 using Godot;
@@ -11,6 +10,11 @@ namespace GArkanoid.Systems{
 
 public partial class GameManager : Node
 {
+	[ExportGroup("Music")]
+	[Export] private AudioStream _menuMusic;
+	[Export] private AudioStream _gameMusic;
+
+	private AudioStreamPlayer _musicPlayer;
 
 	#region Singleton
 		public static GameManager Instance
@@ -41,6 +45,17 @@ public partial class GameManager : Node
 			GameStateBase mainMenu = GetState(GameStateType.MainMenu);
 			mainMenu.OnEnter();
 			LoadedStates.Push(mainMenu);
+
+			Settings.Initialize();                                        
+
+			_musicPlayer = new AudioStreamPlayer
+			{
+				Name = "MusicPlayer",
+				Bus = "Music",
+				ProcessMode = ProcessModeEnum.Always
+			};
+			AddChild(_musicPlayer);
+			UpdateMusic(GameStateType.MainMenu);
 		}
 
 		#endregion
@@ -86,14 +101,14 @@ public partial class GameManager : Node
 		}
 
 		// all states derives from GameStateBase so we use GameStateBase
-		// TODO: use Dictionary instead for performance reasons 
-		private List<GameStateBase> _gameStates = new List<GameStateBase>
+		private Dictionary<GameStateType, GameStateBase> _gameStates = new Dictionary<GameStateType, GameStateBase>
 		{
-			new MainMenuState(),
-			new InGameState(),
-			new GameOverState(),
-			new SettingsState(),
-			new PauseState()
+			{ GameStateType.MainMenu, new MainMenuState() },
+			{ GameStateType.InGame, new InGameState() },
+			{ GameStateType.GameOver, new GameOverState() },
+			{ GameStateType.Win, new WinState() },
+			{ GameStateType.Settings, new SettingsState() },
+			{ GameStateType.Pause, new PauseState() }
 		}; 
 
 		public Stack<GameStateBase> LoadedStates { get; private set; } = new Stack<GameStateBase>();
@@ -108,14 +123,7 @@ public partial class GameManager : Node
 
 		private GameStateBase GetState(GameStateType gameStateType)
 		{
-			foreach(GameStateBase state in _gameStates)
-			{
-				if (state.StateType == gameStateType)
-				{
-					return state;
-				}
-			}
-			return null;
+			return _gameStates.TryGetValue(gameStateType, out GameStateBase state) ? state : null;
 		} 
 
 		// to make the transitions -> make the method async  (coroutine)
@@ -150,6 +158,8 @@ public partial class GameManager : Node
 
 			LoadedStates.Push(nextState);
 			ActiveState.OnEnter(force);
+
+			UpdateMusic(targetStateType);
 
 			return true;
 		}	
@@ -225,6 +235,38 @@ public partial class GameManager : Node
 		{
 			Score =0;
 			Lives = 3; 
+		}
+
+		private void UpdateMusic(GameStateType stateType)
+		{
+			switch (stateType)
+			{
+				case GameStateType.MainMenu:
+				PlayMusic(_menuMusic);
+				break;
+
+				case GameStateType.InGame:
+				PlayMusic(_gameMusic);
+				break;
+
+				case GameStateType.Pause:
+				break;
+
+				case GameStateType.GameOver:
+				_musicPlayer.Stop();
+				break;
+			}
+		}
+
+		private void PlayMusic(AudioStream music)
+		{
+			if(_musicPlayer.Stream == music && _musicPlayer.Playing)
+			{
+				return;
+			}
+
+			_musicPlayer.Stream = music;
+			_musicPlayer.Play();
 		}
 
 }

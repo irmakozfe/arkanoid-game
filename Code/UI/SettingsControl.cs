@@ -6,7 +6,7 @@ namespace Garkanoid.UI
 {
 	public partial class SettingsControl : Control
 	{
-		// TODO: implement the save state by yourself!
+		[Export] private Button _applyButton = null;          
 		[Export] private Button _cancelButton = null;
 		[Export] private Button _mainMenuButton = null;
 
@@ -32,9 +32,17 @@ namespace Garkanoid.UI
 		private static readonly Vector2I DesignResolution = new(640, 360);
 
 		#endregion Resolution
+		private SettingsData _working;
 
 		public override void _EnterTree()
 		{
+			_working = Settings.Current;                        
+
+			if (_applyButton != null)                           
+			{
+				_applyButton.Pressed += OnApplyPressed;
+			}
+
 			if (_cancelButton != null)
 			{
 				_cancelButton.Pressed += OnClosePressed;
@@ -69,6 +77,11 @@ namespace Garkanoid.UI
 
 		public override void _ExitTree()
 		{
+			if (_applyButton != null)                           
+			{
+				_applyButton.Pressed -= OnApplyPressed;
+			}
+
 			if (_cancelButton != null)
 			{
 				_cancelButton.Pressed -= OnClosePressed;
@@ -103,44 +116,46 @@ namespace Garkanoid.UI
 
 		public override void _Ready()
 		{
-			// TODO: when settings data is implemented, read this from the data.
 			if (_masterAudioControl != null)
 			{
-				SetupAudioControl(_masterAudioControl, _masterBusName, _masterDisplayName);
+				SetupAudioControl(_masterAudioControl, _masterBusName, _masterDisplayName, _working.MasterVolume);   // ← DEĞİŞTİ
 			}
 
 			if (_musicAudioControl != null)
 			{
-				SetupAudioControl(_musicAudioControl, _musicBusName, _musicDisplayName);
+				SetupAudioControl(_musicAudioControl, _musicBusName, _musicDisplayName, _working.MusicVolume);       // ← DEĞİŞTİ
 			}
 
 			if (_sfxAudioControl != null)
 			{
-				SetupAudioControl(_sfxAudioControl, _sfxBusName, _sfxDisplayName);
+				SetupAudioControl(_sfxAudioControl, _sfxBusName, _sfxDisplayName, _working.SFXVolume);              // ← DEĞİŞTİ
 			}
 
 			if (_resolutionControl != null)
 			{
-				Window window = GetWindow();
-				bool isFullscreen = window.Mode == Window.ModeEnum.Fullscreen;
-
-				_resolutionControl.Setup(_resolutionDisplayName, DesignResolution, window.Size, isFullscreen);
+				_resolutionControl.Setup(_resolutionDisplayName, DesignResolution, _working.Resolution, _working.Fullscreen);
 			}
 		}
 
-		private void SetupAudioControl(AudioControl audioControl, string busName, string displayName)
+		private void SetupAudioControl(AudioControl audioControl, string busName, string displayName, float volume)
 		{
-			int audioBusIndex = AudioServer.GetBusIndex(busName);
+			audioControl.Setup(busName, displayName, volume);
+		}
 
-			if (audioBusIndex >= 0)
+		private void OnApplyPressed()
+		{
+			Settings.Save(_working);
+
+			if (!GameManager.Instance.ActivatePreviousState())
 			{
-				float volume = AudioServer.GetBusVolumeDb(audioBusIndex);
-				audioControl.Setup(busName, displayName, volume);
+				GD.PushError("Scene can not be continued.");
 			}
 		}
 
 		private void OnClosePressed()
 		{
+			RevertUnsavedChanges();                             
+
 			if (!GameManager.Instance.ActivatePreviousState())
 			{
 				GD.PushError("Game can not be continued");
@@ -149,6 +164,7 @@ namespace Garkanoid.UI
 
 		private void OnMainMenuPressed()
 		{
+			
 			GetTree().Paused = false;
 
 			if (!GameManager.Instance.ChangeState(GameStateType.MainMenu))
@@ -156,9 +172,27 @@ namespace Garkanoid.UI
 				GD.PushError("Could not return to Main Menu.");
 			}
 		}
+		private void RevertUnsavedChanges()
+		{
+			Settings.Apply(Settings.Current);
+			_working = Settings.Current;
+		}
 
 		private void OnVolumeChanged(string audioBus, float decibel)
 		{
+			if (audioBus == _masterBusName)
+			{
+				_working.MasterVolume = decibel;
+			}
+			else if (audioBus == _musicBusName)
+			{
+				_working.MusicVolume = decibel;
+			}
+			else if (audioBus == _sfxBusName)
+			{
+				_working.SFXVolume = decibel;
+			}
+
 			int audioBusIndex = AudioServer.GetBusIndex(audioBus);
 
 			if (audioBusIndex < 0)
@@ -171,25 +205,20 @@ namespace Garkanoid.UI
 
 		private void OnResolutionChanged(Vector2I resolution)
 		{
-			DisplayServer.WindowSetSize(resolution);
-
-			int screen = DisplayServer.WindowGetCurrentScreen();
-			Vector2I screenPosition = DisplayServer.ScreenGetPosition(screen);
-			Vector2I screenSize = DisplayServer.ScreenGetSize(screen);
-			DisplayServer.WindowSetPosition(screenPosition + (screenSize - resolution) / 2);
+			_working.Resolution = resolution;
+			Settings.Apply(_working);   
 		}
 
 		private void OnFullscreenToggled(bool fullscreen)
 		{
-			if (fullscreen)
+			_working.Fullscreen = fullscreen;
+
+			if (!fullscreen)
 			{
-				GetWindow().Mode = Window.ModeEnum.Fullscreen;
+				_working.Resolution = _resolutionControl.SelectedResolution;
 			}
-			else
-			{
-				GetWindow().Mode = Window.ModeEnum.Windowed;
-				OnResolutionChanged(_resolutionControl.SelectedResolution);
-			}
+
+			Settings.Apply(_working);   
 		}
 	}
 }

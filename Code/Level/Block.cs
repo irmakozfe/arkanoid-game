@@ -31,7 +31,7 @@ public partial class Block : StaticBody2D
 
 		}
 	}
-
+	[Export] public string ID {get; set;} = System.Guid.NewGuid().ToString();
 		public override void _Ready()
 	{
 		_collider = this.GetNode<CollisionShape2D>(recursive: true);

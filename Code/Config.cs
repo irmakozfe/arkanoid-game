@@ -30,6 +30,9 @@ namespace GArkanoid.Entities
 
         public const string BlockGroup = "Blocks";
 
+        public const string  QuickSaveAction = "QuickSave";
+        public const string QuickLoadAction = "QuickLoad";
+
 
         
         

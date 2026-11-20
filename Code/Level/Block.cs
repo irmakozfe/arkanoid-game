@@ -1,10 +1,12 @@
 using GArkanoid.Entities;
 using GArkanoid.Systems;
 using Godot;
+using Godot.Collections;
 using GArkanoid.Common;
+using Garkanoid.Save;
 
-
-public partial class Block : StaticBody2D
+[Tool]
+public partial class Block : StaticBody2D, ISaveable
 {
 	[Signal] public delegate void BlockDestroyedEventHandler(Block block);
 	[Export] private int _score = 10;
@@ -32,7 +34,7 @@ public partial class Block : StaticBody2D
 		}
 	}
 	[Export] public string ID {get; set;} = System.Guid.NewGuid().ToString();
-		public override void _Ready()
+	public override void _Ready()
 	{
 		_collider = this.GetNode<CollisionShape2D>(recursive: true);
 	}
@@ -40,14 +42,14 @@ public partial class Block : StaticBody2D
 	public void Enable()
 	{
 		Show();
-		_collider.CallDeferred("Disabled", false);
+		_collider.CallDeferred("disabled", false);
 	}
 
 	public void Disable()
 	{
 		Hide();
 		if(_collider != null){
-			_collider.SetDeferred("Disabled", true);
+			_collider.SetDeferred("disabled", true);
 		}
 	}
 
@@ -70,4 +72,44 @@ public partial class Block : StaticBody2D
 		
 	}
 
+    public bool Save(ref Dictionary<string, Variant> saveData)
+	{
+		//TODO:: 
+		if(saveData == null)
+		{
+			GD.PushWarning("Save Data was null. This may be a bug!");
+			saveData = new Dictionary<string, Variant>();
+		}
+
+		var blockData = new Dictionary<string, Variant>();
+		blockData["IsDestroyed"] = IsDestroyed;
+
+		saveData[ID] = blockData;
+		
+		return true;
+	}
+
+    public bool Load(Dictionary<string, Variant> saveData)
+	{
+		if (saveData == null || !saveData.ContainsKey(ID))
+		{
+			GD.PushError("");
+			return false;
+		}
+
+		var blockData = (Dictionary<string, Variant>) saveData[ID];
+
+		if(blockData == null)
+		{
+			GD.PushError("");
+			return false;
+		}
+
+		if (blockData.ContainsKey("IsDestroyed"))
+		{
+			IsDestroyed = (bool) blockData["IsDestroyed"];
+		}
+
+		return true;
+	}
 }

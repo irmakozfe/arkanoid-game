@@ -1,3 +1,4 @@
+using Garkanoid.Save;
 using Garkanoid.State;
 using GArkanoid.Entities;
 using Godot;
@@ -56,6 +57,12 @@ public partial class GameManager : Node
 			};
 			AddChild(_musicPlayer);
 			UpdateMusic(GameStateType.MainMenu);
+
+			if (GameManager.Instance.SaveSystem.LatestLoadData != null)
+			{
+				Load(GameManager.Instance.SaveSystem.LatestLoadData);
+				
+			}
 		}
 
 		#endregion
@@ -99,6 +106,8 @@ public partial class GameManager : Node
 				return _sceneTree;
 			}
 		}
+
+		public SaveSystem SaveSystem {get; private set;} = new SaveSystem();
 
 		// all states derives from GameStateBase so we use GameStateBase
 		private Dictionary<GameStateType, GameStateBase> _gameStates = new Dictionary<GameStateType, GameStateBase>
@@ -197,11 +206,34 @@ public partial class GameManager : Node
 
 		private void QuickLoad()
 		{
-			GD.Print("Quick Load");
+			var loadData = SaveSystem.QuickLoad();
+
+			if(loadData == null)
+			{
+				GD.PushError("Load data is empty");
+				return;
+			}
+
+			Score = (int) loadData["Score"];
+			Lives = (int) loadData["Lives"];
+
+			// force reload 
+			ChangeState(GameStateType.InGame, force: true);
+
 		}
 		private void QuickSave()
 		{
-			GD.Print("Quick Save");
+			// TODO: use Config to get rid of magic numbers
+			var data = new Godot.Collections.Dictionary<string, Variant>
+			{
+				{"Score", Score},
+				{"Lives", Lives}
+			};
+
+			Level.Current.Save(ref data);
+
+			SaveSystem.QuickSave(data);
+			
 		}
 
 		public int Score

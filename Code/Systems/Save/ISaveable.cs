@@ -1,3 +1,6 @@
+using Godot;
+using Godot.Collections;
+
 namespace Garkanoid.Save{
 public interface ISaveable
 {
@@ -9,8 +12,8 @@ public interface ISaveable
         }
 
     // TODO: design what kind of parameter these methods should accept
-    bool Save();
-    bool Load();
+    bool Save(ref Dictionary<string, Variant> saveData);
+    bool Load(Dictionary<string, Variant> saveData);
     
 }
 

@@ -58,11 +58,6 @@ public partial class GameManager : Node
 			AddChild(_musicPlayer);
 			UpdateMusic(GameStateType.MainMenu);
 
-			if (GameManager.Instance.SaveSystem.LatestLoadData != null)
-			{
-				Load(GameManager.Instance.SaveSystem.LatestLoadData);
-				
-			}
 		}
 
 		#endregion
@@ -214,8 +209,8 @@ public partial class GameManager : Node
 				return;
 			}
 
-			Score = (int) loadData["Score"];
-			Lives = (int) loadData["Lives"];
+			Score = (int) loadData[Config.ScoreKey];
+			Lives = (int) loadData[Config.LivesKey];
 
 			// force reload 
 			ChangeState(GameStateType.InGame, force: true);
@@ -223,11 +218,15 @@ public partial class GameManager : Node
 		}
 		private void QuickSave()
 		{
-			// TODO: use Config to get rid of magic numbers
+			if (ActiveState?.StateType != GameStateType.InGame || Level.Current == null)
+			{
+				GD.PushWarning("Quick save is only possible in game.");
+				return;
+			}
 			var data = new Godot.Collections.Dictionary<string, Variant>
 			{
-				{"Score", Score},
-				{"Lives", Lives}
+				{Config.ScoreKey, Score},
+				{Config.LivesKey, Lives}
 			};
 
 			Level.Current.Save(ref data);

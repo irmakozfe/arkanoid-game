@@ -2,10 +2,12 @@ using Garkanoid.Effects;
 using Garkanoid.Entities;
 using Godot;
 using System;
+using Garkanoid.Save;
+using Godot.Collections;
 
 namespace GArkanoid.Entities
 {
-	public partial class Ball : CharacterBody2D
+	public partial class Ball : CharacterBody2D, ISaveable
 	{
 		
 		[Export] private float _speed = 300;
@@ -15,6 +17,7 @@ namespace GArkanoid.Entities
 
 		private bool _isLaunched = false; 
 		private Vector2 _startDirection;
+		[Export] public string ID {get; set;} = Config.BallKey;
 
 		public float Speed
 		{
@@ -26,7 +29,7 @@ namespace GArkanoid.Entities
 			get {return _direction;}
 		}
 
-		public override void _Ready()
+        public override void _Ready()
 		{
 		 _direction = _direction.Normalized();	
 		 _startDirection = _direction;
@@ -94,5 +97,37 @@ namespace GArkanoid.Entities
 			Velocity = Vector2.Zero;
 			GlobalPosition = _paddle.GlobalPosition + _offset;
 		}
-}
+
+        public bool Save(ref Dictionary<string, Variant> saveData)
+        {
+			if (saveData == null) return false;
+
+			saveData[ID] = new Dictionary<string, Variant>
+			{
+				{ Config.PositionXKey, GlobalPosition.X },
+				{ Config.PositionYKey, GlobalPosition.Y },
+				{ Config.DirectionXKey, _direction.X },
+				{ Config.DirectionYKey, _direction.Y },
+				{ Config.IsLaunchedKey, _isLaunched },
+			};
+			return true;
+        }
+
+        public bool Load(Dictionary<string, Variant> saveData)
+        {
+			if (saveData == null || !saveData.TryGetValue(ID, out Variant value))
+			{
+				GD.PushError($"No save data for ball '{ID}'.");
+				return false;
+			}
+
+			var data = value.AsGodotDictionary<string, Variant>();
+			GlobalPosition = new Vector2(data[Config.PositionXKey].AsSingle(), data[Config.PositionYKey].AsSingle());
+			_direction = new Vector2(data[Config.DirectionXKey].AsSingle(), data[Config.DirectionYKey].AsSingle()).Normalized();
+			_isLaunched = data[Config.IsLaunchedKey].AsBool();
+			Velocity = _direction * _speed;
+			return true;
+
+        }
+    }
 }

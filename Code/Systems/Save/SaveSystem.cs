@@ -9,7 +9,6 @@ namespace Garkanoid.Save
         public const string SaveFileExtension = ".json";
         public const string SaveDirectory = "user://saves/";
         public const string QuickSaveSlot = "QuickSave"; // File name for quick save file 
-        string relativePath;
 
         public Dictionary<string, Variant> LatestLoadData
         {
@@ -69,9 +68,19 @@ namespace Garkanoid.Save
 
             using (FileAccess saveFile = FileAccess.Open(saveFilePath, FileAccess.ModeFlags.Read))
             {
-                string serializedData = saveFile.GetAsText();
-                LatestLoadData = (Dictionary<string, Variant>) Json.ParseString(serializedData);
+                if (saveFile == null)
+                {
+                    GD.PushError($"Failed to open save file: {saveFilePath} {FileAccess.GetOpenError()}");
+                    return null;
+                }
 
+                Variant parsed = Json.ParseString(saveFile.GetAsText());
+                if (parsed.VariantType != Variant.Type.Dictionary)
+                {
+                    GD.PushError($"Save file is corrupted: {saveFilePath}");
+                    return null;
+                }
+                LatestLoadData = parsed.AsGodotDictionary<string, Variant>();
             }
 
             return LatestLoadData;

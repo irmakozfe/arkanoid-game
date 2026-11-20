@@ -33,6 +33,19 @@ namespace GArkanoid.Entities
         public const string  QuickSaveAction = "QuickSave";
         public const string QuickLoadAction = "QuickLoad";
 
+        public const string PaddleKey = "Paddle";
+        public const string BallKey = "Ball";
+        public const string LevelKey = "Level";
+        public const string LevelIdKey = "LevelId";
+        public const string ScoreKey = "Score";
+        public const string LivesKey = "Lives";
+        public const string PositionXKey = "PositionX";
+        public const string PositionYKey = "PositionY";
+        public const string DirectionXKey = "DirectionX";
+        public const string DirectionYKey = "DirectionY";
+        public const string IsLaunchedKey = "IsLaunched";
+        public const string ControlModeKey = "ControlMode";
+
 
         
         

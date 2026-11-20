@@ -1,10 +1,12 @@
 using Godot;
 using System;
 using System.Security.AccessControl;
+using Garkanoid.Save;
+using Godot.Collections;
 
 namespace GArkanoid.Entities
 {
- 	public partial class Paddle : CharacterBody2D
+ 	public partial class Paddle : CharacterBody2D, ISaveable
 	{
 		public enum ControlMode
 		{
@@ -15,6 +17,8 @@ namespace GArkanoid.Entities
 		[Export] private ControlMode _controlMode =ControlMode.Keyboard;
 
 		private Ball _ball;
+
+		[Export] public string ID {get; set;} = Config.PaddleKey;
 
 
 
@@ -45,5 +49,33 @@ namespace GArkanoid.Entities
 
 			MoveAndCollide(new Vector2(moveX, 0));
 		}
-	}
+
+        public bool Save(ref Dictionary<string, Variant> saveData)
+        {
+			if (saveData == null) return false;
+
+			saveData[ID] = new Dictionary<string, Variant>
+			{
+				{Config.PositionXKey, GlobalPosition.X},
+				{Config.ControlModeKey, (int) _controlMode}	
+			};
+
+			return true;
+        }
+
+        public bool Load(Dictionary<string, Variant> saveData)
+        {
+			if (saveData == null || !saveData.TryGetValue(ID, out Variant value))
+			{
+				GD.PushError($"No save data for paddle '{ID}'.");
+				return false;
+			}
+
+			var data = value.AsGodotDictionary<string, Variant>();
+			GlobalPosition = new Vector2(data[Config.PositionXKey].AsSingle(), GlobalPosition.Y);
+			_controlMode = (ControlMode)data[Config.ControlModeKey].AsInt32();
+			return true;         
+        }
+    }
+
 }

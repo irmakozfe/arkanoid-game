@@ -31,7 +31,7 @@ public partial class Level : Node2D, ISaveable
 			private set;
 		}
 
-	[Export] public string ID {get; set;} = new System.Guid().ToString();	
+	[Export] public string ID {get; set;} = Config.LevelKey;
 
 	public override void _Input(InputEvent @event)
 	{
@@ -65,8 +65,22 @@ public partial class Level : Node2D, ISaveable
 			}
 
 		IList<Ball> balls = this.GetNodes<Ball>(recursive:true);
-			GD.Print($"Found {balls.Count} balls!");	
+
+		SaveSystem saveSystem = GameManager.Instance.SaveSystem;
+		if(saveSystem.LatestLoadData != null)
+			{
+				if (!Load(saveSystem.LatestLoadData))
+				{
+					GD.PushError("Loading level data failed");
+				}
+				saveSystem.LoadingDone();
+			}
 	}
+
+        public override void _ExitTree()
+        {
+            if (Current == this) Current = null;
+        }
 
 
 	private void PrintAddedScore(int addedScore)
@@ -101,7 +115,7 @@ public partial class Level : Node2D, ISaveable
 					}
 					else
 					{
-						_blocks[ID] = block; 
+						_blocks[block.ID] = block; 
 					}
 				}
 				else
@@ -132,8 +146,7 @@ public partial class Level : Node2D, ISaveable
 
 			var levelData = new Godot.Collections.Dictionary<string, Variant>();
 
-
-			// TODO: save the level index
+			levelData[Config.LevelIdKey] = _levelId;
 			
 			//save all blocks
 			foreach (KeyValuePair<string, Block> blockEntry in _blocks)
@@ -146,35 +159,33 @@ public partial class Level : Node2D, ISaveable
 				}
 			}
 
+			if (!_ball.Save(ref levelData)) success = false;
+			if (!_paddle.Save(ref levelData)) success = false;
 
-			// TODO: save the ball 
-			// TODO: save the paddle
-
-			saveData["Level"] = levelData;
+			saveData[Config.LevelKey] = levelData;
 			return success;
 		}
 
         public bool Load(Godot.Collections.Dictionary<string, Variant> saveData)
         {
+			if (saveData == null || !saveData.ContainsKey(Config.LevelKey))
+			{
+				GD.PushError("Save data doesn't contain level data.");
+				return false;
+			}
+
+			var levelData = saveData[Config.LevelKey].AsGodotDictionary<string, Variant>();
 			bool success = true;
 
-			if(Save == null || !saveData.ContainsKey("Level")){}
-
-			var levelData = (Godot.Collections.Dictionary<string, Variant>)saveData["Level"];
-
-			foreach(var blockEntry in _blocks)
+			foreach (Block block in _blocks.Values)
 			{
-				Block block = blockEntry.Value;
-
-				if (!block.Load(levelData))
-				{
-					success = false;
-					
-				}
-
-				//TODO: load ball and paddle
-				return success;
+				if (!block.Load(levelData)) success = false;
 			}
+
+			if (!_ball.Load(levelData)) success = false;
+			if (!_paddle.Load(levelData)) success = false;
+
+			return success;
         }
     }
 }

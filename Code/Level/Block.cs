@@ -42,14 +42,14 @@ public partial class Block : StaticBody2D, ISaveable
 	public void Enable()
 	{
 		Show();
-		_collider.CallDeferred("disabled", false);
+		_collider.CallDeferred(CollisionShape2D.PropertyName.Disabled, false);
 	}
 
 	public void Disable()
 	{
 		Hide();
 		if(_collider != null){
-			_collider.SetDeferred("disabled", true);
+			_collider.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 		}
 	}
 
@@ -72,7 +72,7 @@ public partial class Block : StaticBody2D, ISaveable
 		
 	}
 
-    public bool Save(ref Dictionary<string, Variant> saveData)
+	public bool Save(ref Dictionary<string, Variant> saveData)
 	{
 		//TODO:: 
 		if(saveData == null)
@@ -89,7 +89,7 @@ public partial class Block : StaticBody2D, ISaveable
 		return true;
 	}
 
-    public bool Load(Dictionary<string, Variant> saveData)
+	public bool Load(Dictionary<string, Variant> saveData)
 	{
 		if (saveData == null || !saveData.ContainsKey(ID))
 		{

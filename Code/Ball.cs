@@ -7,6 +7,7 @@ using Godot.Collections;
 
 namespace GArkanoid.Entities
 {
+	[Tool]
 	public partial class Ball : CharacterBody2D, ISaveable
 	{
 		
@@ -17,7 +18,7 @@ namespace GArkanoid.Entities
 
 		private bool _isLaunched = false; 
 		private Vector2 _startDirection;
-		[Export] public string ID {get; set;} = Config.BallKey;
+		[Export] public string ID {get; set;} = System.Guid.NewGuid().ToString();
 
 		public float Speed
 		{
@@ -37,6 +38,9 @@ namespace GArkanoid.Entities
 
 		public override void _PhysicsProcess(double delta)
 		{
+
+			if (Engine.IsEditorHint()) return;
+
 			float deltaTime = (float)delta;
 
 			if (!_isLaunched)

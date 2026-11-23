@@ -6,6 +6,7 @@ using Godot.Collections;
 
 namespace GArkanoid.Entities
 {
+	[Tool]
  	public partial class Paddle : CharacterBody2D, ISaveable
 	{
 		public enum ControlMode
@@ -18,7 +19,7 @@ namespace GArkanoid.Entities
 
 		private Ball _ball;
 
-		[Export] public string ID {get; set;} = Config.PaddleKey;
+		[Export] public string ID {get; set;} = System.Guid.NewGuid().ToString();
 
 
 
@@ -26,6 +27,8 @@ namespace GArkanoid.Entities
 		public override void _PhysicsProcess(double delta)
 		{
 			float deltaTime = (float)delta;
+
+			if (Engine.IsEditorHint()) return;
 
 			if (Input.IsActionJustPressed(Config.ClickToggleActionName)) 
 			{

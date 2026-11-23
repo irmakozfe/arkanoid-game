@@ -10,35 +10,44 @@
 [node name="Block" parent="Blocks" unique_id=560840623 instance=ExtResource("1_2d6n6")]
 position = Vector2(455, 189)
 collision_layer = 8
+ID = "a4a0b3d9-25b8-42b0-9874-dc07f21733b5"
 
 [node name="Block2" parent="Blocks" unique_id=948156796 instance=ExtResource("1_2d6n6")]
 position = Vector2(551, 189)
 collision_layer = 8
+ID = "ea4a04f7-af79-41eb-88e3-1a249427ae59"
 
 [node name="Block3" parent="Blocks" unique_id=651403267 instance=ExtResource("1_2d6n6")]
 position = Vector2(648, 189)
 collision_layer = 8
+ID = "cc15c8e6-8527-4883-a8dc-f2fcb811b5a3"
 
 [node name="Block4" parent="Blocks" unique_id=927853026 instance=ExtResource("1_2d6n6")]
 position = Vector2(359, 189)
 collision_layer = 8
+ID = "6695746c-7158-4243-adb7-2779ea2dc1eb"
 
 [node name="Block5" parent="Blocks" unique_id=3895543 instance=ExtResource("2_vtng4")]
 position = Vector2(425, 222)
 collision_layer = 8
+ID = "fc5fae94-9e4c-4eab-be8e-364ea9aa3f3a"
 
 [node name="Block6" parent="Blocks" unique_id=1957472996 instance=ExtResource("2_vtng4")]
 position = Vector2(522, 222)
 collision_layer = 8
+ID = "d93ac8ba-f26c-41c6-a2cf-3baef7099e28"
 
 [node name="Block7" parent="Blocks" unique_id=925885651 instance=ExtResource("2_vtng4")]
 position = Vector2(618, 222)
 collision_layer = 8
+ID = "f597483c-270b-4a56-a216-992eaf408015"
 
 [node name="Block8" parent="Blocks" unique_id=1036305603 instance=ExtResource("1_2d6n6")]
 position = Vector2(745, 189)
 collision_layer = 8
+ID = "17d7c76d-ddc3-459d-95e7-8b4c2a770bd0"
 
 [node name="Block9" parent="Blocks" unique_id=1202325908 instance=ExtResource("2_vtng4")]
 position = Vector2(714, 222)
 collision_layer = 8
+ID = "f9cc02f4-f7e9-4882-af81-73baa8a11777"

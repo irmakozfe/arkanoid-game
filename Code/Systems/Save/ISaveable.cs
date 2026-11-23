@@ -11,7 +11,7 @@ public interface ISaveable
             set;
         }
 
-    // TODO: design what kind of parameter these methods should accept
+        
     bool Save(ref Dictionary<string, Variant> saveData);
     bool Load(Dictionary<string, Variant> saveData);
     

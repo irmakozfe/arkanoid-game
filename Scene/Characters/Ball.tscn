@@ -8,6 +8,8 @@ radius = 15.033297
 
 [node name="Ball" type="CharacterBody2D" unique_id=1871623377]
 script = ExtResource("2_8i0ic")
+_direction = Vector2(0.70710677, -0.70710677)
+ID = "db766f21-4212-4942-b37e-28a8493421de"
 
 [node name="Ball" type="Sprite2D" parent="." unique_id=930898551]
 texture = ExtResource("1_bwwxe")

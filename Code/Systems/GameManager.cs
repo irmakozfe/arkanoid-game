@@ -188,8 +188,8 @@ public partial class GameManager : Node
 			return true;
 		}
 
-        public override void _Input(InputEvent @event)
-        {
+		public override void _Input(InputEvent @event)
+		{
 			if (@event.IsActionPressed(Config.QuickSaveAction))
 			{
 				QuickSave();
@@ -197,7 +197,7 @@ public partial class GameManager : Node
 			{
 				QuickLoad();
 			}
-        }
+		}
 
 		private void QuickLoad()
 		{

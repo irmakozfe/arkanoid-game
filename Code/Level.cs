@@ -6,6 +6,8 @@ using Godot;
 using System.Collections.Generic;
 
 namespace GArkanoid.Entities{
+
+[Tool]
 public partial class Level : Node2D, ISaveable
 {
 	#region Statics
@@ -31,10 +33,12 @@ public partial class Level : Node2D, ISaveable
 			private set;
 		}
 
-	[Export] public string ID {get; set;} = Config.LevelKey;
+	[Export] public string ID {get; set;} = System.Guid.NewGuid().ToString();
 
 	public override void _Input(InputEvent @event)
 	{
+		if (Engine.IsEditorHint()) return;
+
 		if (@event.IsActionPressed(Config.PauseActionName))
 		{
 			GameManager.Instance.ChangeState(GameStateType.Pause);
@@ -44,6 +48,8 @@ public partial class Level : Node2D, ISaveable
 	public override void _Ready()
 	// Called when the node enters the scene tree for the first time.
 	{
+		if (Engine.IsEditorHint()) return;
+
 		LoadLevelContent();
 		Current = this;
 
@@ -77,10 +83,10 @@ public partial class Level : Node2D, ISaveable
 			}
 	}
 
-        public override void _ExitTree()
-        {
-            if (Current == this) Current = null;
-        }
+		public override void _ExitTree()
+		{
+			if (Current == this) Current = null;
+		}
 
 
 	private void PrintAddedScore(int addedScore)
@@ -134,7 +140,7 @@ public partial class Level : Node2D, ISaveable
 			}
 		}
 
-        public bool Save(ref Godot.Collections.Dictionary<string, Variant> saveData)
+		public bool Save(ref Godot.Collections.Dictionary<string, Variant> saveData)
 		{
 			if(saveData == null)
 			{
@@ -166,8 +172,8 @@ public partial class Level : Node2D, ISaveable
 			return success;
 		}
 
-        public bool Load(Godot.Collections.Dictionary<string, Variant> saveData)
-        {
+		public bool Load(Godot.Collections.Dictionary<string, Variant> saveData)
+		{
 			if (saveData == null || !saveData.ContainsKey(Config.LevelKey))
 			{
 				GD.PushError("Save data doesn't contain level data.");
@@ -186,6 +192,6 @@ public partial class Level : Node2D, ISaveable
 			if (!_paddle.Load(levelData)) success = false;
 
 			return success;
-        }
-    }
+		}
+	}
 }

@@ -3,12 +3,13 @@
 [ext_resource type="Script" uid="uid://bytytwpe5ujon" path="res://Code/Level.cs" id="1_88x46"]
 [ext_resource type="PackedScene" uid="uid://bjp73iv4uh5yy" path="res://Scene/Characters/Ball.tscn" id="1_bcosh"]
 [ext_resource type="PackedScene" uid="uid://bmqk08xdnbqab" path="res://Scene/Characters/Paddle.tscn" id="2_gkjhl"]
+[ext_resource type="PackedScene" uid="uid://dmgpdpdl7qu37" path="res://Scene/Levels/Contents/Level2Content.tscn" id="3_qhil3"]
+[ext_resource type="PackedScene" uid="uid://wtf3q82p3tyy" path="res://Scene/Levels/Contents/Level1Content.tscn" id="3_ym3b0"]
 [ext_resource type="Texture2D" uid="uid://ducdov7jkbgts" path="res://Art/GArkanoid-art/32/corner.png" id="4_vuguo"]
 [ext_resource type="Texture2D" uid="uid://dh28m1clwhqe2" path="res://Art/GArkanoid-art/32/vertical.png" id="5_88x46"]
 [ext_resource type="Texture2D" uid="uid://b608ifw32cjxg" path="res://Art/GArkanoid-art/32/horizontal.png" id="6_88x46"]
 [ext_resource type="Script" uid="uid://c7birnfofiham" path="res://Code/LifeLossArea.cs" id="7_8tnob"]
 [ext_resource type="Script" uid="uid://b3y1xluu1if2l" path="res://Code/Testing/ScoreTest.cs" id="7_ns3so"]
-[ext_resource type="PackedScene" uid="uid://dmgpdpdl7qu37" path="res://Scene/Levels/Contents/Level1Content.tscn" id="10_4cl0q"]
 [ext_resource type="Script" uid="uid://bcm0qlkutil10" path="res://Code/UI/LevelUI.cs" id="10_26jgb"]
 [ext_resource type="Script" uid="uid://no2e8u1qspon" path="res://Code/Level/EffectPlayer.cs" id="12_ym3b0"]
 [ext_resource type="Resource" uid="uid://dyvmgbkj1m0xb" path="res://Data/EffectMap.tres" id="13_qhil3"]
@@ -24,20 +25,23 @@ size = Vector2(1088, 32)
 
 [node name="Level" type="Node2D" unique_id=662855955 node_paths=PackedStringArray("_paddle", "_ball")]
 script = ExtResource("1_88x46")
-_levelContents = [ExtResource("10_4cl0q")]
+_levelContents = [ExtResource("3_ym3b0"), ExtResource("3_qhil3")]
 _paddle = NodePath("Paddle")
 _ball = NodePath("Ball")
+ID = "958c6a1c-b015-4411-b961-7dc97f97b0cd"
 
 [node name="Ball" parent="." unique_id=2103484260 node_paths=PackedStringArray("_paddle") instance=ExtResource("1_bcosh")]
 position = Vector2(527, 453)
 collision_mask = 14
-_direction = Vector2(0.70710677, -0.70710677)
+_direction = Vector2(0.7071068, -0.7071068)
 _paddle = NodePath("../Paddle")
+ID = "f27cdd3f-7c34-433a-8aeb-371bfa07574c"
 
 [node name="Paddle" parent="." unique_id=148408937 instance=ExtResource("2_gkjhl")]
 position = Vector2(528, 497.5)
 collision_layer = 2
 collision_mask = 4
+ID = "a58d2c09-2ea7-4178-afaf-03ec31d2f4d8"
 
 [node name="Bounds" type="Node2D" parent="." unique_id=924120084]
 

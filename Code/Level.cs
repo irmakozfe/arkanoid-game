@@ -49,6 +49,8 @@ public partial class Level : Node2D, ISaveable
 	// Called when the node enters the scene tree for the first time.
 	{
 		if (Engine.IsEditorHint()) return;
+		
+		_levelId = GameManager.Instance.CurrentLevelId; 
 
 		LoadLevelContent();
 		Current = this;
@@ -131,12 +133,27 @@ public partial class Level : Node2D, ISaveable
 			}
 
 		}
-
 		private void OnBlockDestroyed(Block block)
 		{
-			if (GetTree().GetNodesInGroup(Config.BlockGroup).Count == 0)
+			foreach (Block b in _blocks.Values)
 			{
-				Callable.From(() => GameManager.Instance.ChangeState(GameStateType.Win)).CallDeferred();
+				if (!b.IsDestroyed) return;   
+			}
+
+			Callable.From(CompleteLevel).CallDeferred();
+		}
+
+		private void CompleteLevel()
+		{
+			bool hasNextLevel = _levelId < _levelContents.Length;
+
+			if (hasNextLevel)
+			{
+				GameManager.Instance.LoadLevel(_levelId + 1);
+			}
+			else
+			{
+				GameManager.Instance.ChangeState(GameStateType.Win);
 			}
 		}
 
@@ -151,8 +168,6 @@ public partial class Level : Node2D, ISaveable
 			bool success = true;
 
 			var levelData = new Godot.Collections.Dictionary<string, Variant>();
-
-			levelData[Config.LevelIdKey] = _levelId;
 			
 			//save all blocks
 			foreach (KeyValuePair<string, Block> blockEntry in _blocks)

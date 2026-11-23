@@ -211,6 +211,7 @@ public partial class GameManager : Node
 
 			Score = (int) loadData[Config.ScoreKey];
 			Lives = (int) loadData[Config.LivesKey];
+			CurrentLevelId = (int) loadData[Config.LevelIdKey];
 
 			// force reload 
 			ChangeState(GameStateType.InGame, force: true);
@@ -226,7 +227,8 @@ public partial class GameManager : Node
 			var data = new Godot.Collections.Dictionary<string, Variant>
 			{
 				{Config.ScoreKey, Score},
-				{Config.LivesKey, Lives}
+				{Config.LivesKey, Lives},
+				{Config.LevelIdKey, CurrentLevelId}
 			};
 
 			Level.Current.Save(ref data);
@@ -246,6 +248,8 @@ public partial class GameManager : Node
 				// TODO notify about updating the score!
 			}
 		}
+
+		public int CurrentLevelId { get; private set; } = Config.InitialLevelId;   
 
 		protected virtual void Initialize()
 		{
@@ -284,9 +288,16 @@ public partial class GameManager : Node
 
 		public void ResetGame()
 		{
-			Score =0;
-			Lives = 3; 
+			Score = Config.InitialScore;
+			Lives = Config.InitialLives; 
+			CurrentLevelId = Config.InitialLevelId; 
 		}
+
+		public void LoadLevel(int levelId)
+		{
+			CurrentLevelId = levelId;
+			ChangeState(GameStateType.InGame, force: true);
+		}		
 
 		private void UpdateMusic(GameStateType stateType)
 		{

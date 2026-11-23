@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://dmgpdpdl7qu37"]
+
+[ext_resource type="PackedScene" uid="uid://bv8rgxl06h0pb" path="res://Scene/Blocks/GreenBlock.tscn" id="1_2d6n6"]
+[ext_resource type="PackedScene" uid="uid://c8h6bl3y2025h" path="res://Scene/Blocks/PurpleBlock.tscn" id="2_vtng4"]
+
+[node name="Bricks" type="Node2D" unique_id=1241635102]
+
+[node name="Blocks" type="Node2D" parent="." unique_id=981881914]
+
+[node name="Block10" parent="Blocks" unique_id=173356680 instance=ExtResource("2_vtng4")]
+position = Vector2(421, 156)
+collision_layer = 8
+ID = "56230b69-dd62-4d4e-b5a1-5bd465547878"
+
+[node name="Block11" parent="Blocks" unique_id=535936747 instance=ExtResource("2_vtng4")]
+position = Vector2(518, 156)
+collision_layer = 8
+ID = "e59d1a40-7409-42f2-b278-e02d4bfd5396"
+
+[node name="Block12" parent="Blocks" unique_id=905289779 instance=ExtResource("2_vtng4")]
+position = Vector2(614, 156)
+collision_layer = 8
+ID = "3d07a67c-d410-4aa3-9a28-73d561933c4d"
+
+[node name="Block13" parent="Blocks" unique_id=19711266 instance=ExtResource("2_vtng4")]
+position = Vector2(710, 156)
+collision_layer = 8
+ID = "7b69b32a-a4f7-4aeb-938c-7076a98df0f9"
+
+[node name="Block" parent="Blocks" unique_id=560840623 instance=ExtResource("1_2d6n6")]
+position = Vector2(455, 189)
+collision_layer = 8
+ID = "35c8d373-3616-4732-ab4a-32e63d0f0a74"
+
+[node name="Block2" parent="Blocks" unique_id=948156796 instance=ExtResource("1_2d6n6")]
+position = Vector2(551, 189)
+collision_layer = 8
+ID = "9dda3857-10d8-4221-844c-4546f1a6c383"
+
+[node name="Block3" parent="Blocks" unique_id=651403267 instance=ExtResource("1_2d6n6")]
+position = Vector2(648, 189)
+collision_layer = 8
+ID = "27ece341-dbdf-4138-8be8-f0742637ae78"
+
+[node name="Block4" parent="Blocks" unique_id=927853026 instance=ExtResource("1_2d6n6")]
+position = Vector2(359, 189)
+collision_layer = 8
+ID = "613cd8b9-69f5-47f3-977f-e1559ee470c1"
+
+[node name="Block5" parent="Blocks" unique_id=3895543 instance=ExtResource("2_vtng4")]
+position = Vector2(425, 222)
+collision_layer = 8
+ID = "0c572778-d6b7-4a99-9884-40cc8382a39f"
+
+[node name="Block6" parent="Blocks" unique_id=1957472996 instance=ExtResource("2_vtng4")]
+position = Vector2(522, 222)
+collision_layer = 8
+ID = "513de9f4-897c-4ea6-9677-e6e9078190a7"
+
+[node name="Block7" parent="Blocks" unique_id=925885651 instance=ExtResource("2_vtng4")]
+position = Vector2(618, 222)
+collision_layer = 8
+ID = "2fd0fd11-81aa-46e6-9979-5a4ae5a52c9e"
+
+[node name="Block8" parent="Blocks" unique_id=1036305603 instance=ExtResource("1_2d6n6")]
+position = Vector2(745, 189)
+collision_layer = 8
+ID = "1b8f68d7-82ae-46fb-a28c-efd5aabc749f"
+
+[node name="Block9" parent="Blocks" unique_id=1202325908 instance=ExtResource("2_vtng4")]
+position = Vector2(714, 222)
+collision_layer = 8
+ID = "4916efd0-ab9d-4c4b-a484-e7eee4b9b1f4"
+
+[node name="Block14" parent="Blocks" unique_id=656677973 instance=ExtResource("1_2d6n6")]
+position = Vector2(453, 123)
+collision_layer = 8
+ID = "20a76553-1566-44be-998d-a3f0bcb025f9"
+
+[node name="Block15" parent="Blocks" unique_id=2061872018 instance=ExtResource("1_2d6n6")]
+position = Vector2(549, 123)
+collision_layer = 8
+ID = "8965dd49-73ea-413d-99d4-54ceb797f2db"
+
+[node name="Block16" parent="Blocks" unique_id=1213817636 instance=ExtResource("1_2d6n6")]
+position = Vector2(646, 123)
+collision_layer = 8
+ID = "5ebe607a-9efe-4e3f-b717-a4e0dcb2394a"
+
+[node name="Block17" parent="Blocks" unique_id=374183329 instance=ExtResource("1_2d6n6")]
+position = Vector2(357, 123)
+collision_layer = 8
+ID = "80ee58a8-5958-4c4f-a57b-c211d15ac481"
+
+[node name="Block18" parent="Blocks" unique_id=2054301582 instance=ExtResource("1_2d6n6")]
+position = Vector2(743, 123)
+collision_layer = 8
+ID = "11ac70c8-72a8-47ce-994d-f5b0ac9dd051"

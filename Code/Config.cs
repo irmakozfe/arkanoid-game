@@ -37,6 +37,7 @@ namespace GArkanoid.Entities
         public const string BallKey = "Ball";
         public const string LevelKey = "Level";
         public const string LevelIdKey = "LevelId";
+        public const int InitialLevelId = 1;
         public const string ScoreKey = "Score";
         public const string LivesKey = "Lives";
         public const string PositionXKey = "PositionX";
@@ -45,6 +46,7 @@ namespace GArkanoid.Entities
         public const string DirectionYKey = "DirectionY";
         public const string IsLaunchedKey = "IsLaunched";
         public const string ControlModeKey = "ControlMode";
+
 
 
         

@@ -30,7 +30,7 @@ namespace GArkanoid.Entities
 			get {return _direction;}
 		}
 
-		public bool isThroughBallActive {get; set;} = false;
+		public bool IsThroughBallActive {get; set;} = false;
 
         public override void _Ready()
 		{
@@ -79,7 +79,7 @@ namespace GArkanoid.Entities
 						effect = EffectType.Hit;
 						block.Hit();
 
-						if (isThroughBallActive)
+						if (IsThroughBallActive)
 						{
 							// TODO: implement doCollide and set it false here!
 						}

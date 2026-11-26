@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cr1kx28yuhbhn"]
+
+[ext_resource type="PackedScene" uid="uid://b0rujddr3oa6u" path="res://Scene/Levels/PowerUps/PowerUp.tscn" id="1_rc7c1"]
+[ext_resource type="Texture2D" uid="uid://ddg3x5083bnw4" path="res://Art/PowerUp/powerup_exploding_ball.png" id="2_lucbl"]
+
+[node name="PowerUp" unique_id=1847005150 instance=ExtResource("1_rc7c1")]
+PowerUpType = 6
+
+[node name="Sprite2D" parent="." index="1" unique_id=1546156246]
+texture = ExtResource("2_lucbl")

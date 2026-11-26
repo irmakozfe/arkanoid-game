@@ -268,6 +268,11 @@ public partial class GameManager : Node
 			
 		}
 
+		public void AddLife()
+		{
+			Lives++;
+		}
+
 		public bool RemoveLife()
 		{
 

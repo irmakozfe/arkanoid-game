@@ -38,6 +38,7 @@ enabled=PackedStringArray("res://addons/save_ids/plugin.cfg")
 [file_customization]
 
 folder_colors={
+"res://Code/": "purple",
 "res://UI/": "teal"
 }
 
@@ -95,9 +96,10 @@ QuickLoad={
 [layer_names]
 
 2d_physics/layer_1="BallLayer"
-2d_physics/layer_2="PadelLayer"
+2d_physics/layer_2="PaddleLayer"
 2d_physics/layer_3="WallLayer"
 2d_physics/layer_4="Block"
+2d_physics/layer_5="PowerUp"
 
 [physics]
 

@@ -30,6 +30,8 @@ namespace GArkanoid.Entities
 			get {return _direction;}
 		}
 
+		public bool isThroughBallActive {get; set;} = false;
+
         public override void _Ready()
 		{
 		 _direction = _direction.Normalized();	
@@ -76,6 +78,11 @@ namespace GArkanoid.Entities
 					{
 						effect = EffectType.Hit;
 						block.Hit();
+
+						if (isThroughBallActive)
+						{
+							// TODO: implement doCollide and set it false here!
+						}
 					}
 
 					if (collider is LifeLossArea lifeLossArea)

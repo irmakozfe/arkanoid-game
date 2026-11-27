@@ -1,7 +1,9 @@
 using GArkanoid.Systems;
+using Godot;
 
 namespace Garkanoid.PowerUps
 {
+    [GlobalClass]
     public partial class ExtraLifePowerUpEffect : PowerUpEffect
     {
         public override PowerUpType PowerUpType => PowerUpType.ExtraLife;

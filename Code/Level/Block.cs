@@ -4,12 +4,19 @@ using Godot;
 using Godot.Collections;
 using GArkanoid.Common;
 using Garkanoid.Save;
+using Garkanoid.PowerUps;
 
 [Tool]
 public partial class Block : StaticBody2D, ISaveable
 {
 	[Signal] public delegate void BlockDestroyedEventHandler(Block block);
 	[Export] private int _score = 10;
+
+	[Export] private float _powerUpChance = 0.3f;
+	[Export] private PowerUpType _guaranteedPowerUp = PowerUpType.None;
+
+	public PowerUpType GuaranteedPowerUp => _guaranteedPowerUp;
+	public float PowerUpChange => _powerUpChance;
 
 	private bool _isDestroyed = false;
 

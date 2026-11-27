@@ -1,7 +1,9 @@
 using GArkanoid.Entities;
+using Godot;
 
 namespace Garkanoid.PowerUps
 {
+	[GlobalClass]
 	public partial class ThroughBallPowerUpEffect : PowerUpEffect
 	{
 		public override PowerUpType PowerUpType => PowerUpType.ThroughBall;

@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ExtraLifePowerUpEffect" format=3 uid="uid://6bidoybbdpf4"]
+
+[ext_resource type="Script" uid="uid://crfnmfnw407e6" path="res://Code/Level/PowerUps/ExtraLifePowerUpEffect.cs" id="1_llcuj"]
+
+[resource]
+script = ExtResource("1_llcuj")
+metadata/_custom_type_script = "uid://crfnmfnw407e6"

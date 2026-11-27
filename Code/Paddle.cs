@@ -1,6 +1,6 @@
 using Godot;
 using System;
-using System.Security.AccessControl;
+using GArkanoid.Common;
 using Garkanoid.Save;
 using Godot.Collections;
 
@@ -16,13 +16,49 @@ namespace GArkanoid.Entities
 		}
 		[Export] private float _speed = 300;
 		[Export] private ControlMode _controlMode =ControlMode.Keyboard;
+		[Export] private  Sprite2D _sprite;
+		[Export] private CollisionShape2D _collisionShape;
 
 		private Ball _ball;
+		private float _widthMultiplyer = 1f; 
+		private float _initialWidthScale = 1;
+
+		public float WidthMultiplyer
+		{
+			get => _widthMultiplyer;
+			set
+			{
+				_widthMultiplyer = value;
+				UpdateWidth();
+			}
+		}
 
 		[Export] public string ID {get; set;} = System.Guid.NewGuid().ToString();
 
+        public override void _Ready()
+        {
+            base._Ready(); 
 
+			if (_collisionShape == null)
+			{
+				_collisionShape = this.GetNode<CollisionShape2D>();
+			}
 
+			if(_sprite == null)
+			{
+				_sprite = this.GetNode<Sprite2D>();
+			}
+
+			if(_sprite != null){
+
+			_initialWidthScale = _sprite.Scale.X;
+			} 
+			else
+			{
+				GD.PushError("Sprite for the paddle is not set!");
+			}
+
+        }
 
 		public override void _PhysicsProcess(double delta)
 		{
@@ -79,6 +115,26 @@ namespace GArkanoid.Entities
 			_controlMode = (ControlMode)data[Config.ControlModeKey].AsInt32();
 			return true;         
         }
+
+		public void Expand(float multiplyer)
+		{
+			WidthMultiplyer *= multiplyer;
+		}
+
+		public void Schrink(float multiplyer)
+		{
+			WidthMultiplyer *= 1 / multiplyer;
+		}
+
+		private void UpdateWidth()
+		{
+			// TODO: make sure the paddle fits the level
+			float xScale = _initialWidthScale * WidthMultiplyer;
+			float yScale =_sprite.Scale.Y;
+
+			_sprite.Scale = new Vector2(xScale, yScale);
+			_collisionShape.Scale = new Vector2(yScale, xScale);
+		}
     }
 
 }

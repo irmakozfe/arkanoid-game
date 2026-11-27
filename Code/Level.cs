@@ -1,8 +1,10 @@
 using Garkanoid.Effects;
+using Garkanoid.PowerUps;
 using Garkanoid.Save;
 using GArkanoid.Common;
 using GArkanoid.Systems;
 using Godot;
+using System;
 using System.Collections.Generic;
 
 namespace GArkanoid.Entities{
@@ -32,6 +34,7 @@ public partial class Level : Node2D, ISaveable
 			get;
 			private set;
 		}
+	public PowerUpManager PowerUpManager {get; private set;}
 
 	[Export] public string ID {get; set;} = System.Guid.NewGuid().ToString();
 
@@ -49,6 +52,8 @@ public partial class Level : Node2D, ISaveable
 	// Called when the node enters the scene tree for the first time.
 	{
 		if (Engine.IsEditorHint()) return;
+
+		PowerUpManager = this.GetNode<PowerUpManager>();
 		
 		_levelId = GameManager.Instance.CurrentLevelId; 
 
@@ -138,12 +143,28 @@ public partial class Level : Node2D, ISaveable
 			foreach (Block b in _blocks.Values)
 			{
 				if (!b.IsDestroyed) return;   
-			}
+			} 
+				// SpawnPowerUpFromBlock(b);
 
 			Callable.From(CompleteLevel).CallDeferred();
 		}
 
-		private void CompleteLevel()
+        private void SpawnPowerUpFromBlock(Block block)
+		{
+			PowerUpType powerUpToSpawn = PowerUpType.None;
+
+			if(block.GuaranteedPowerUp != PowerUpType.None)
+			{
+				powerUpToSpawn = block.GuaranteedPowerUp;
+			} 
+			//TODO: keep implementing these
+			else if (block.PowerUpChange > 0 && GD.Randf() <= block.PowerUpChange)
+			{
+				
+			}
+		}
+
+        private void CompleteLevel()
 		{
 			bool hasNextLevel = _levelId < _levelContents.Length;
 

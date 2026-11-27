@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://c4d22nbp5pwy5"]
+
+[ext_resource type="Script" uid="uid://i0j5fbvdtgn2" path="res://Code/Level/PowerUps/PowerUpManager.cs" id="1_lgg2h"]
+[ext_resource type="Script" uid="uid://2tud0h6exmcp" path="res://Code/Level/PowerUps/PowerUpSceneMapping.cs" id="2_0m1sv"]
+[ext_resource type="PackedScene" uid="uid://dawm6tpxnlevt" path="res://Scene/Levels/PowerUps/ExtraLife.tscn" id="2_e38u8"]
+[ext_resource type="PackedScene" uid="uid://cr2fj3svu3o7o" path="res://Scene/Levels/PowerUps/ExpandPaddle.tscn" id="4_y25nw"]
+[ext_resource type="PackedScene" uid="uid://qeopsmir668x" path="res://Scene/Levels/PowerUps/ThroughBall.tscn" id="5_xoy2a"]
+[ext_resource type="Resource" uid="uid://6bidoybbdpf4" path="res://Data/PowerUpEffects/ExtraLife.tres" id="6_utwdb"]
+[ext_resource type="Resource" uid="uid://di0gmdw568mhg" path="res://Data/PowerUpEffects/ExpandPaddle.tres" id="7_28cq7"]
+[ext_resource type="Resource" uid="uid://cjh0mwkw8b4p1" path="res://Data/PowerUpEffects/ThroughBall.tres" id="8_0shyh"]
+
+[sub_resource type="Resource" id="Resource_0m1sv"]
+script = ExtResource("2_0m1sv")
+PowerUpType = 1
+PowerUpScene = ExtResource("2_e38u8")
+metadata/_custom_type_script = "uid://2tud0h6exmcp"
+
+[sub_resource type="Resource" id="Resource_fsvvk"]
+script = ExtResource("2_0m1sv")
+PowerUpType = 2
+PowerUpScene = ExtResource("4_y25nw")
+metadata/_custom_type_script = "uid://2tud0h6exmcp"
+
+[sub_resource type="Resource" id="Resource_8w06c"]
+script = ExtResource("2_0m1sv")
+PowerUpType = 3
+PowerUpScene = ExtResource("5_xoy2a")
+metadata/_custom_type_script = "uid://2tud0h6exmcp"
+
+[node name="PowerUpManager" type="Node2D" unique_id=1947800842]
+script = ExtResource("1_lgg2h")
+_powerUpSceneMapping = Array[Object]([SubResource("Resource_0m1sv"), SubResource("Resource_fsvvk"), SubResource("Resource_8w06c")])
+_powerUpEffects = Array[Resource]([ExtResource("6_utwdb"), ExtResource("7_28cq7"), ExtResource("8_0shyh")])

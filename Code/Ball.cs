@@ -31,7 +31,9 @@ namespace GArkanoid.Entities
 		}
 
 		public bool IsThroughBallActive {get; set;} = false;
+
 		public float SpeedMultiplier{get;set;} = 1f;
+
 
         public override void _Ready()
 		{

@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://bcm0qlkutil10" path="res://Code/UI/LevelUI.cs" id="10_26jgb"]
 [ext_resource type="Script" uid="uid://no2e8u1qspon" path="res://Code/Level/EffectPlayer.cs" id="12_ym3b0"]
 [ext_resource type="Resource" uid="uid://dyvmgbkj1m0xb" path="res://Data/EffectMap.tres" id="13_qhil3"]
+[ext_resource type="PackedScene" uid="uid://c4d22nbp5pwy5" path="res://Scene/Levels/PowerUps/PowerUpManager.tscn" id="14_qhil3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68yrv"]
 size = Vector2(32, 32.109592)
@@ -37,10 +38,12 @@ _direction = Vector2(0.7071068, -0.7071068)
 _paddle = NodePath("../Paddle")
 ID = "f27cdd3f-7c34-433a-8aeb-371bfa07574c"
 
-[node name="Paddle" parent="." unique_id=148408937 instance=ExtResource("2_gkjhl")]
+[node name="Paddle" parent="." unique_id=148408937 node_paths=PackedStringArray("_sprite", "_collisionShape") instance=ExtResource("2_gkjhl")]
 position = Vector2(528, 497.5)
 collision_layer = 2
 collision_mask = 4
+_sprite = NodePath("Sprite2D")
+_collisionShape = NodePath("CollisionShape2D")
 ID = "a58d2c09-2ea7-4178-afaf-03ec31d2f4d8"
 
 [node name="Bounds" type="Node2D" parent="." unique_id=924120084]
@@ -149,3 +152,5 @@ horizontal_alignment = 2
 script = ExtResource("12_ym3b0")
 _effectMap = ExtResource("13_qhil3")
 metadata/_custom_type_script = "uid://no2e8u1qspon"
+
+[node name="PowerUpManager" parent="." unique_id=1947800842 instance=ExtResource("14_qhil3")]

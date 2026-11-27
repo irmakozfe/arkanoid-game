@@ -32,6 +32,9 @@ namespace GArkanoid.Entities
 
 		public bool IsThroughBallActive {get; set;} = false;
 
+		public float SpeedMultiplier{get;set;} = 1f;
+
+
         public override void _Ready()
 		{
 		 _direction = _direction.Normalized();	
@@ -66,7 +69,7 @@ namespace GArkanoid.Entities
 
 		private void Move(float delta)
 		{
-			KinematicCollision2D collision = MoveAndCollide(_direction * _speed * delta);
+			KinematicCollision2D collision = MoveAndCollide(_direction * _speed * SpeedMultiplier * delta);
 			EffectType effect = EffectType.None;
 			if(collision != null)
 			{
@@ -97,7 +100,7 @@ namespace GArkanoid.Entities
 				Level.Current.EffectPlayer.PlayEffect(effect, GlobalPosition);
 				}
 				_direction = _direction.Bounce(collision.GetNormal()).Normalized();
-				Velocity = _direction * _speed;
+				Velocity = _direction * _speed * SpeedMultiplier;
 			}
 		}
 
@@ -107,6 +110,7 @@ namespace GArkanoid.Entities
 			_direction = _startDirection;
 			Velocity = Vector2.Zero;
 			GlobalPosition = _paddle.GlobalPosition + _offset;
+			SpeedMultiplier = 1f;
 		}
 
         public bool Save(ref Dictionary<string, Variant> saveData)
@@ -136,7 +140,7 @@ namespace GArkanoid.Entities
 			GlobalPosition = new Vector2(data[Config.PositionXKey].AsSingle(), data[Config.PositionYKey].AsSingle());
 			_direction = new Vector2(data[Config.DirectionXKey].AsSingle(), data[Config.DirectionYKey].AsSingle()).Normalized();
 			_isLaunched = data[Config.IsLaunchedKey].AsBool();
-			Velocity = _direction * _speed;
+			Velocity = _direction * _speed * SpeedMultiplier;
 			return true;
 
         }

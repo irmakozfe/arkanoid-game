@@ -7,7 +7,10 @@ public enum PowerUpType
 		None = 0,
 		ExtraLife,
 		ExpandPaddle,
-		ThroughBall
+		ThroughBall,
 		//TODO: add 3 more powerups here 
+		BallSpeedIncrease,
+		LoseLife,
+		ExplodingBall
 	}
 }
